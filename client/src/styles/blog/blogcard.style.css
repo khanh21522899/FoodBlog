@@ -1,0 +1,83 @@
+.blogcard {
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  width: 350px;
+  height: 430px;
+  margin: auto;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  scale: 1;
+  transition: scale 0.4s;
+  cursor: pointer;
+}
+
+.blogcard:hover {
+  scale: 1.1;
+}
+
+.blogcard-img {
+  width: 100%;
+  height: 40%;
+}
+
+.blogcard-img > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 8px;
+}
+
+.blogcard-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.blogcard-content-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 10px auto 5px;
+}
+
+.blogcard-content-time {
+  color: gray;
+
+}
+
+.blogcard-content-desc {
+  padding: 0 10px;
+  pointer-events: none;
+}
+
+
+.blogcard-author {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-radius: 10px;
+  padding: 10px;
+  transition: background 0.4s;
+  cursor: pointer
+}
+
+.blogcard-author:hover {
+  background-color: rgba(0,0,0,0.2);
+}
+
+
+.blogcard-author-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.blogcard-author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

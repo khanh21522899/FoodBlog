@@ -8,25 +8,29 @@ const mongoose = require('mongoose')
 const app = express()
 
 //use middleware
-app.use(express.json)
-
+app.use(express.json())
 
 
 
 //Routes
+app.use('/api/v1/blogs', BlogRoutes);
 
+
+//Error handling middleware
+app.use((error, req, res, next) => {
+  res.status(400).json({ success: false, error: error.message });
+})
 
 
 //connecting to DB
 mongoose.connect(process.env.URI)
-    .then(()=>{
-         //make the server listening on port 4567
-        app.listen(process.env.PORT, ()=>{
-            console.log('connect & listen')
-        })
+  .then(() => {
+    //make the server listening on port 4567
+    app.listen(process.env.PORT, () => {
+      console.log('connect & listen on PORT: ' + process.env.PORT)
     })
-    .catch((e)=>{
-        console.log(e)
-    })
-
+  })
+  .catch((e) => {
+    console.log(e)
+  })
 
