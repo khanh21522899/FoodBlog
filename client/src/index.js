@@ -8,6 +8,7 @@ import {
   RouterProvider
 } from 'react-router-dom'
 import { BlogDetail, Blog } from './components/blog';
+import CreateBlog from './components/createBlog/createBlog.js';
 
 
 const router = createBrowserRouter(
@@ -15,6 +16,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route index element={<Blog />} />
       <Route path="blogs/:id" element={<BlogDetail />} />
+      <Route path="create-blog" element={<CreateBlog />} />
     </Route>
   )
 )

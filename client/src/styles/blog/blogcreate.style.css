@@ -1,0 +1,39 @@
+.container {
+    width: 50%;
+    margin: auto;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-top: 10px;
+  }
+  
+  input,
+  textarea {
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+  
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+
+  /* blogCreate.css */
+.image-preview {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+}
+  

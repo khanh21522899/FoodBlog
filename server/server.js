@@ -2,14 +2,20 @@ const express = require('express')
 const BlogRoutes = require('./routes/BlogsRoute')
 require('dotenv').config()
 const mongoose = require('mongoose')
+const cors = require('cors')
+const morgan = require('morgan')
 
 
 //create the server
 const app = express()
 
+app.use(cors());
+
+
 //use middleware
 app.use(express.json())
 
+app.use(morgan('combined')); // 'combined' is one of the predefined log formats
 
 
 //Routes
@@ -21,7 +27,7 @@ app.use((error, req, res, next) => {
   res.status(400).json({ success: false, error: error.message });
 })
 
-
+  
 //connecting to DB
 mongoose.connect(process.env.URI)
   .then(() => {

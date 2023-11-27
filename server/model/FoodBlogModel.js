@@ -10,19 +10,11 @@ const FoodBlogSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: 'User' },
   images: [{ type: String }],
   content: String,
-  createdDate: { type: Date },
-  updatedDate: { type: Date },
+  createdDate: { type: Date, default: Date.now },
+  updatedDate: { type: Date, default: Date.now }
 })
 
-
-
-
-
-
-
-
-
-
-
-
 module.exports = mongoose.model('FoodBlog', FoodBlogSchema)
+
+
+

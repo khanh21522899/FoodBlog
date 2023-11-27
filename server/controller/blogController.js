@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const FoodBlog = require('../model/FoodBlogModel')
 const User = require('../model/UserModel')
 
@@ -60,8 +61,37 @@ const getBlog = async (req, res, next) => {
   res.status(200).json(blog);
 }
 
+// Tao blog
+const createBlog = async (req, res, next) => {
+  let blog;
+  let user;
+
+  // dung destructuring de lay cac thuoc tinh cua blog tu body
+  let { title, duration, description, images, content } = req.body;
+  try {
+    let userId = req.user && req.user._id;
+    user = await User.findById(userId);
+
+    let blogId = new mongoose.Types.ObjectId();
+    blog = await FoodBlog.create({
+      _id: blogId,
+      title,
+      duration,
+      description,
+      author: blogId,
+      images,
+      content,
+    })
+  } catch (error) {
+    return next(error);
+  }
+  res.status(200).json(blog);
+}
+
+
 module.exports = {
   getAllBlogs,
   getBlog,
-  getBlogsFromPage
+  getBlogsFromPage,
+  createBlog
 }
