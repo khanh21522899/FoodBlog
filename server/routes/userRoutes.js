@@ -1,5 +1,5 @@
 const express = require('express')
-const {loginUser, signupUser} = require ('../controller/userController.js')
+const {loginUser, signupUser, updateUser, updateUserPassword} = require ('../controller/userController.js')
 
 
 const router = express.Router()
@@ -11,6 +11,12 @@ router.post('/login', loginUser)
 
 //Signup Route
 router.post('/signup', signupUser)
+
+//Dashboard Route
+router.put ('/dashboard/updateUserPassword', updateUserPassword)
+router.put ('/dashboard/updateUser', updateUser)
+
+router.get('/dashboard', ()=>{})
 
 
 

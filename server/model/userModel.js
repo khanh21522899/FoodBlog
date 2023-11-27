@@ -10,6 +10,7 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    avatar: String,
     email:{
         type: String,
         required:true,
@@ -21,6 +22,23 @@ const userSchema = new Schema({
     }
 })
 
+userSchema.statics.updatePassword = async function (_id, oldPassword, newPassword) {
+
+    const user = await this.findById(_id)
+        //making sure that oldPassword is match and new Password is strong enough
+        const matchPassword = await bcrypt.compare(oldPassword, user.password)
+        if(!matchPassword){
+            throw Error ('The old password given is wrong')
+        }
+        if(!validator.isStrongPassword(newPassword)){
+            throw Error ('new password is not strong enough')
+        }
+    
+    const newUser = await this.findByIdAndUpdate (_id, {password: newPassword})
+    
+    return newUser
+}
+//add singup function to schema
 userSchema.statics.signup = async function(name, email, password){
 
     const exists = await this.findOne({email})
@@ -53,7 +71,7 @@ userSchema.statics.signup = async function(name, email, password){
 
 }
 
-
+//add login function to schema
 userSchema.statics.login = async function(email, password){
 
     if(!email || !password ){

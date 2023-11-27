@@ -6,7 +6,34 @@ const createUserToken = (_id) =>{
    return jwt.sign({_id : _id},process.env.SECRET, {expiresIn : '1d'})
 }
 
+const getUser = async (req, res) =>{
+    const
+}
 
+const updateUser = async (req, res)=>{
+    const {token, dataToUpdate} = req.body
+    try{
+        const _id = await jwt.verify(token, process.env.SECRET)
+        const user = await User.findByIdAndUpdate(_id, dataToUpdate)
+        res.status(200).json(user, dataToUpdate)
+    }
+    catch(error){
+        res.status(400).json({error : error.message})
+    }
+    
+}
+
+const updateUserPassword = async (req, res)=>{
+    const {token, email, oldPassword, newPassword} = req.body
+    try{
+        const _id = await jwt.verify(token, process.env.SECRET)
+        const user = await User.updatePassword (_id, oldPassword, newPassword)
+        res.status(200).json(user, {oldPassword}, {newPassword})
+    }
+    catch (error){
+        res.status(400).json({error : error.message})
+    }
+}
 
 //login: when user login secessful server response with a token that client can save to localstorage
 const loginUser = async (req, res)=>{
@@ -46,4 +73,4 @@ const signupUser = async (req, res)=> {
     }
 }
 
-module.exports = {loginUser, signupUser}
+module.exports = {loginUser, signupUser, updateUser, updateUserPassword}
