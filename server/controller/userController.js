@@ -7,15 +7,39 @@ const createUserToken = (_id) =>{
 }
 
 const getUser = async (req, res) =>{
-    const
+    const {token} = req.body
+    try{
+        const _id = await jwt.verify(token, process.env.SECRET)
+        const user = await User.findById(_id)
+        res.status(200).json({email: user.email, name: user.name, avatar: user.avatar})
+    }
+    catch (error){
+        res.status(400).json({error:error.message})
+    }
 }
 
 const updateUser = async (req, res)=>{
-    const {token, dataToUpdate} = req.body
+    const {token, name, newEmail, oldPassword, newPassword, avatar} = req.body
     try{
         const _id = await jwt.verify(token, process.env.SECRET)
-        const user = await User.findByIdAndUpdate(_id, dataToUpdate)
-        res.status(200).json(user, dataToUpdate)
+        if(newEmail){
+            
+            const user = await User.updateEmail(_id, newEmail)
+            console.log('here')
+        }
+        if(newPassword){
+            const user = await User.updatePassword (_id, oldPassword, newPassword)
+        }
+        if(name){
+            const user = await User.findByIdAndUpdate(_id, {name: name}, {new: true})
+            //res.status(200).json({'here'})
+        }
+        if(avatar){
+            const user = await User.findByIdAndUpdate(_id, {avatar: avatar}, {new: true})
+        }
+        
+        const user = await User.findById(_id)
+        res.status(200).json({user})
     }
     catch(error){
         res.status(400).json({error : error.message})
@@ -23,17 +47,6 @@ const updateUser = async (req, res)=>{
     
 }
 
-const updateUserPassword = async (req, res)=>{
-    const {token, email, oldPassword, newPassword} = req.body
-    try{
-        const _id = await jwt.verify(token, process.env.SECRET)
-        const user = await User.updatePassword (_id, oldPassword, newPassword)
-        res.status(200).json(user, {oldPassword}, {newPassword})
-    }
-    catch (error){
-        res.status(400).json({error : error.message})
-    }
-}
 
 //login: when user login secessful server response with a token that client can save to localstorage
 const loginUser = async (req, res)=>{
@@ -73,4 +86,4 @@ const signupUser = async (req, res)=> {
     }
 }
 
-module.exports = {loginUser, signupUser, updateUser, updateUserPassword}
+module.exports = {loginUser, signupUser, updateUser, getUser}

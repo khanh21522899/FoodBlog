@@ -22,6 +22,20 @@ const userSchema = new Schema({
     }
 })
 
+
+userSchema.statics.updateEmail = async function (_id, newEmail){
+        const exists = await this.findOne({email: newEmail})
+        if(exists){
+            throw Error('this email has already been used')
+        }
+        if(!validator.isEmail(newEmail)){
+            throw Error('email is not valid')
+        }
+        
+        const user = await this.findByIdAndUpdate (_id, {email: newEmail}, {new:true})
+        return user
+}
+
 userSchema.statics.updatePassword = async function (_id, oldPassword, newPassword) {
 
     const user = await this.findById(_id)
@@ -33,8 +47,10 @@ userSchema.statics.updatePassword = async function (_id, oldPassword, newPasswor
         if(!validator.isStrongPassword(newPassword)){
             throw Error ('new password is not strong enough')
         }
-    
-    const newUser = await this.findByIdAndUpdate (_id, {password: newPassword})
+    //encrypt the password
+    const salt = await bcrypt.genSalt(10)
+    const hashPassword = await bcrypt.hash(newPassword, salt)
+    const newUser = await this.findByIdAndUpdate (_id, {password: hashPassword}, {new:true})
     
     return newUser
 }
