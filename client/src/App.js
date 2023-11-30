@@ -1,10 +1,13 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 
+
 import Login from './pages/LoginPage';
 import Signup from './pages/SignupPage';
 import Home from './pages/FakeHome';
 import Dashboard from './pages/Dashboard';
+import UpdateUser from './pages/UpdateUser';
+
 
 function App() {
   return (
@@ -29,7 +32,12 @@ function App() {
         path='/auth/dashboard'
         element={<Dashboard/>}
         />
+        <Route
+        path='/auth/dashboard/updateuser'
+        element={<UpdateUser/>}
+        />
       </Routes>
+      
     </div>
     
   

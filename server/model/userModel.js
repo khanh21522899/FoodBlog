@@ -23,21 +23,23 @@ const userSchema = new Schema({
 })
 
 
-userSchema.statics.updateEmail = async function (_id, newEmail){
-        const exists = await this.findOne({email: newEmail})
+userSchema.statics.updateEmail = async function (_id, email){
+        const exists = await this.findOne({email: email})
         if(exists){
             throw Error('this email has already been used')
         }
-        if(!validator.isEmail(newEmail)){
+        if(!validator.isEmail(email)){
             throw Error('email is not valid')
         }
         
-        const user = await this.findByIdAndUpdate (_id, {email: newEmail}, {new:true})
+        const user = await this.findByIdAndUpdate (_id, {email: email}, {new:true})
         return user
 }
 
 userSchema.statics.updatePassword = async function (_id, oldPassword, newPassword) {
-
+    if(!oldPassword || !newPassword){
+        throw Error('Change password need to have old and new password')
+    }
     const user = await this.findById(_id)
         //making sure that oldPassword is match and new Password is strong enough
         const matchPassword = await bcrypt.compare(oldPassword, user.password)

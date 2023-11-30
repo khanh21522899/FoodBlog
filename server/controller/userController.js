@@ -7,9 +7,8 @@ const createUserToken = (_id) =>{
 }
 
 const getUser = async (req, res) =>{
-    const {token} = req.body
     try{
-        const _id = await jwt.verify(token, process.env.SECRET)
+        const _id = req.user
         const user = await User.findById(_id)
         res.status(200).json({email: user.email, name: user.name, avatar: user.avatar})
     }
@@ -18,31 +17,55 @@ const getUser = async (req, res) =>{
     }
 }
 
-const updateUser = async (req, res)=>{
-    const {token, name, newEmail, oldPassword, newPassword, avatar} = req.body
+
+const updateName = async(req, res)=>{
     try{
-        const _id = await jwt.verify(token, process.env.SECRET)
-        if(newEmail){
-            
-            const user = await User.updateEmail(_id, newEmail)
-            console.log('here')
-        }
-        if(newPassword){
-            const user = await User.updatePassword (_id, oldPassword, newPassword)
-        }
-        if(name){
-            const user = await User.findByIdAndUpdate(_id, {name: name}, {new: true})
-            //res.status(200).json({'here'})
-        }
-        if(avatar){
-            const user = await User.findByIdAndUpdate(_id, {avatar: avatar}, {new: true})
-        }
-        
-        const user = await User.findById(_id)
-        res.status(200).json({user})
+        const _id = req.user
+        const {name} = req.body
+        user = await User.findByIdAndUpdate(_id, {name: name})
+        res.status(200).json({message: 'Update name sucessfully'})
     }
-    catch(error){
-        res.status(400).json({error : error.message})
+    catch (error){
+        res.status(400).json({error:error.message})
+    }
+}
+
+const updateAvatar = async(req, res)=>{
+    try{
+        const _id = req.user
+        const {avatar} = req.body
+        user = await User.findByIdAndUpdate(_id, {avatar: avatar})
+        res.status(200).json({message: 'Update avatar sucessfully'})
+    }
+    catch (error){
+        res.status(400).json({error:error.message})
+    }
+}
+
+const updateEmail = async(req, res)=>{
+    try{
+        const _id = req.user
+        const {email} = req.body
+        
+        user = await User.updateEmail(_id, email)
+        res.status(200).json({message: `Your new email is ${email}`})
+    }
+    catch (error){
+        res.status(400).json({error:error.message})
+    }
+}
+
+const updatePassword = async (req, res)=>{
+    try{
+        const _id = req.user
+        
+        const {oldPassword, newPassword} = req.body
+        
+        user = await User.updatePassword(_id, oldPassword, newPassword)
+        res.status(200).json({message: 'Update password sucessfully'})
+    }
+    catch (error){
+        res.status(400).json({error:error.message})
     }
     
 }
@@ -72,6 +95,7 @@ const loginUser = async (req, res)=>{
 const signupUser = async (req, res)=> {
     //destructure name, email & password from the body of http request
     const {name, email, password} = req.body
+    
     try {
         //sign up the user with the signup function adding to schema.stactic in model
        const user = await User.signup(name, email, password)
@@ -86,4 +110,4 @@ const signupUser = async (req, res)=> {
     }
 }
 
-module.exports = {loginUser, signupUser, updateUser, getUser}
+module.exports = {loginUser, signupUser, updatePassword, getUser, updateEmail, updateName, updateAvatar}

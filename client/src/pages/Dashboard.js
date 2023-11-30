@@ -1,23 +1,50 @@
 import { useEffect, useState } from "react"
 import './Dashboard.css'
+import {useAuthContext} from '../hooks/useAuthContext'
+import {Link, link} from 'react-router-dom'
+
 
 
 const Dashboard =  () =>{
-
+    const {user} = useAuthContext()
     
+    const [oldPassword, setOldPassword] = useState('')
+    const [newPassword , setNewPassword] = useState('')
     const [avatar, setAvatar] = useState('')
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
-
     
-    const handleChange = (e) =>{
-        const file = e.target.files[0]
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload = () =>{
-            setAvatar(reader.result)
+
+    useEffect(()=>{
+        if(!user){
+            return
         }
-    }
+        
+        const loadData = async ()=>{
+            const response = await fetch('/auth/dashboard', {
+                headers:{
+                    'authorization': `Bearer ${user.token}`
+                }
+            })
+            const res = await response.json()
+            if(!response.ok){
+                console.log('cannot fetch data')
+            }
+            if(response.ok){
+                const {name,email, avatar} = res
+                setAvatar(avatar)
+                setEmail(email)
+                setName(name)
+            }
+        }
+        if(user){
+         loadData()
+        }
+       
+    },[user])
+
+
+ 
 
 
 
@@ -26,30 +53,20 @@ const Dashboard =  () =>{
             <div> blog card</div>
             <div className="info">
                 <h3>User Information</h3>
-                <form className='userInfo'>
-                    <label>Your avatar
-                    <input
-                        type="file"
-                        accept="image/png, image/jpg"
-                        onChange= {handleChange}
-                    />
-                    <img id='avatar' width='150px' height='150px' alt='This is the avatar of user' src={avatar}/>
-                    </label>
-                    <label>Your Name
-                    <input
-                        onChange= {(e)=>setName(e.target.value)}
-                        value = {name}
-                    /> 
-                    </label>
-                    <label>Your email: 
-                    <input
-                        type="email"
-                        onChange= {(e)=>setEmail(e.target.value)}
-                        value = {email}
-                    />
-                    </label>
-                    <button id='submit-btn'>Update</button>
-                </form>
+              
+                <div className='userInfo' >
+                    <p>Your avatar</p>
+                    <img id='avatar' width='100px' height='100px' alt='This is the avatar of user' src={avatar}/>
+                    
+                     
+                    <p className="avatarStatus"></p>
+
+                    <p>Your Name: {name}</p>
+
+                    <p>Your email: {email}</p>
+  
+                    <Link to='/auth/dashboard/updateuser'>Change Information</Link>
+                </div>
             </div>
         </div>
 

@@ -1,0 +1,17 @@
+.updateUser{
+    display: flex;
+    flex-direction: column;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-left: 20%;
+    
+}
+
+.form button{
+    width: 150px;
+    margin-left: 40%;
+}
