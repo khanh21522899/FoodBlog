@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import "../../styles/blog/blogdetail.style.css"
+import "../styles/blog/blogdetail.style.css"
 
 export default function BlogDetail() {
   const { id } = useParams();

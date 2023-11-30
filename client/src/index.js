@@ -7,8 +7,9 @@ import {
   Route,
   RouterProvider
 } from 'react-router-dom'
-import { BlogDetail, Blog } from './components/blog';
+import { Blog } from './components/blog';
 import CreateBlog from './components/createBlog/createBlog.js';
+import BlogDetail from './pages/BlogDetail.js'
 
 
 const router = createBrowserRouter(
