@@ -1,0 +1,8 @@
+.navbar {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1.5rem;
+  background-color: #ccc
+}
+
+
