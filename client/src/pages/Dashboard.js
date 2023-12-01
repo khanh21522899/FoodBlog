@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import './Dashboard.css'
 import {useAuthContext} from '../hooks/useAuthContext'
-import {Link, link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 
 

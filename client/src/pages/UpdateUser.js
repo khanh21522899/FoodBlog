@@ -4,6 +4,7 @@ import { useUpdatePassword } from "../hooks/useUpdatePassword"
 import { useUpdateEmail } from "../hooks/useUpdateEmail"
 import { useUpdateAvatar } from "../hooks/useUpdateAvatar"
 import { useUpdateName } from "../hooks/useUpdateName"
+import {Link} from 'react-router-dom'
 
 
 const UpdateUser = ()=>{
@@ -59,7 +60,7 @@ const UpdateUser = ()=>{
         <div className="updateUser">
             <h3>Change User Infomation</h3>
             <div className="form">
-            <   img id='avatar' width='100px' height='100px' alt='This is the avatar of user' src={avatar}/>
+                <img id='avatar' width='100px' height='100px' alt='This is the avatar of user' src={avatar}/>
                     
                 <label> Change Avatar
                     <input
@@ -112,6 +113,9 @@ const UpdateUser = ()=>{
                 <p>{passwordError}</p>
            
 
+            </div>
+            <div>
+                <Link to='/auth/dashboard'> Finish Update</Link>
             </div>
         </div>
 

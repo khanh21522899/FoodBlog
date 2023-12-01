@@ -11,26 +11,31 @@
     flex-direction: column;
 }
 
+.info h3 {
+    font-size: 2rem;
+}
+
 .userInfo{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    font-size: 1.2rem;
 }
 
-#avatar{
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
 
 .userInfo input{
    margin-left: 20px;
 }
 
-.userInfo #submit-btn{
-    width: 100px;
-    height: 30px;
+.userInfo a {
+    display:block;
+    text-align: center;
+    width: 200px;
+    text-decoration: none;
     border: 1px solid black;
-    border-radius: 20px;
-    font-family: Lato;
-    background-color: greenyellow;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.userInfo a:hover {
+    background-color: lightcoral;
 }

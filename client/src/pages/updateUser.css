@@ -1,17 +1,49 @@
-.updateUser{
-    display: flex;
-    flex-direction: column;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;400&display=swap');
+*{
+    font-family: Lato;
 }
-
+*{
+    margin-top: 10px;
+}
+.updateUser{
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+    align-items: center;
+}
+.updateUser h3 {
+    
+    font-size: 1.5rem;
+}
+.updateUser a{
+    text-decoration: none;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: lightcyan;
+    color: black;
+}
+.updateUser a:hover{
+    background-color: cyan;
+}
 .form{
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin-left: 20%;
-    
+    margin-left: 20%; 
+}
+
+
+.form input{
+    margin-left: 10px;
 }
 
 .form button{
     width: 150px;
     margin-left: 40%;
+    border: 1px solid black;
+    background-color: lightcoral;
+    border-radius: 5px;
+}
+
+.form button:hover{
+    background-color: coral;
 }
