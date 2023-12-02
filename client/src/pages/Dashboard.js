@@ -8,8 +8,7 @@ import {Link} from 'react-router-dom'
 const Dashboard =  () =>{
     const {user} = useAuthContext()
     
-    const [oldPassword, setOldPassword] = useState('')
-    const [newPassword , setNewPassword] = useState('')
+    
     const [avatar, setAvatar] = useState('')
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')

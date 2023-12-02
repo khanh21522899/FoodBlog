@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import './Login.css'
 import { useLogin } from '../hooks/useLogin'
+import {Link} from 'react-router-dom'
 
 const Login = () =>{
 
@@ -39,7 +40,9 @@ const Login = () =>{
             type='submit'
             />
             {error && <div className='error'>{error}</div>}
+            <Link to='/auth/signup'>To Signup</Link>
         </form>
+        
     )
 }
 

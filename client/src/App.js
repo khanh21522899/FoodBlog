@@ -1,5 +1,5 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-
+import { useAuthContext } from './hooks/useAuthContext';
 
 
 import Login from './pages/LoginPage';
@@ -10,6 +10,10 @@ import UpdateUser from './pages/UpdateUser';
 
 
 function App() {
+
+  const {user} = useAuthContext()
+
+
   return (
    <div className='App'>
     <BrowserRouter>
@@ -22,19 +26,19 @@ function App() {
         />
         <Route
         path='/auth/login'
-        element={<Login/>}
+        element={!user ? <Login/> : <Home/>}
         />
         <Route
         path='/auth/signup'
-        element={<Signup/>}
+        element={!user ? <Signup/> : <Home/>}
         />
         <Route
         path='/auth/dashboard'
-        element={<Dashboard/>}
+        element={ user ? <Dashboard/> : <Login/> }
         />
         <Route
         path='/auth/dashboard/updateuser'
-        element={<UpdateUser/>}
+        element={ user ? <UpdateUser/> : <Login/>}
         />
       </Routes>
       

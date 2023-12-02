@@ -24,3 +24,18 @@
     font-family: Lato;
     background-color: greenyellow;
 }
+
+.signup a {
+    margin-top: 20px;
+    display:block;
+    text-align: center;
+    width: 200px;
+    text-decoration: none;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.signup a:hover {
+    background-color: lightcoral;
+}
