@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext';
 
 
@@ -11,8 +11,11 @@ import UpdateUser from './pages/UpdateUser';
 
 function App() {
 
-  const {user} = useAuthContext()
 
+  const { user } = useAuthContext()
+  
+  
+  
 
   return (
    <div className='App'>
@@ -20,26 +23,32 @@ function App() {
     
     <div className='Pages'>
       <Routes>
-      <Route
-        path='/'
-        element={<Home/>}
+
+        <Route
+          path='/'
+          element={<Home/>}
         />
+        
         <Route
         path='/auth/login'
-        element={!user ? <Login/> : <Home/>}
+        element={!user ?<Login/> : <Navigate to='/'/>}
         />
+
         <Route
         path='/auth/signup'
-        element={!user ? <Signup/> : <Home/>}
+        element={ !user ? <Signup/> : <Navigate to='/'/>}
         />
+
         <Route
         path='/auth/dashboard'
-        element={ user ? <Dashboard/> : <Login/> }
+        element={user ? <Dashboard/> : <Navigate to='/auth/login'/>}
         />
+
         <Route
         path='/auth/dashboard/updateuser'
-        element={ user ? <UpdateUser/> : <Login/>}
+        element={user ? <UpdateUser/> : <Navigate to='/auth/login'/>}
         />
+
       </Routes>
       
     </div>

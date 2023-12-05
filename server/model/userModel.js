@@ -22,6 +22,15 @@ const userSchema = new Schema({
     }
 })
 
+userSchema.statics.delete = async function (_id, password) {
+    const user = await this.findById(_id)
+    const matchPassword = await bcrypt.compare(password, user.password)
+    if(!matchPassword){
+        throw Error('Password is not correct')
+    }
+    await this.deleteOne({_id: _id})
+    return user
+}
 
 userSchema.statics.updateEmail = async function (_id, email){
         const exists = await this.findOne({email: email})

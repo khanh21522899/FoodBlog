@@ -1,5 +1,5 @@
 const express = require('express')
-const {loginUser, signupUser, updatePassword, getUser, updateEmail, updateName, updateAvatar} = require ('../controller/userController.js')
+const {loginUser, signupUser, updatePassword, getUser, updateEmail, updateName, updateAvatar, deleteUser} = require ('../controller/userController.js')
 const requireAuth = require('../middleware/requireAuth.js')
 
 const router = express.Router()
@@ -20,6 +20,8 @@ router.put ('/dashboard/updateuser/changename', updateName)
 router.put ('/dashboard/updateuser/changeavatar', updateAvatar)
 router.put ('/dashboard/updateuser/changeemail', updateEmail)
 router.put ('/dashboard/updateuser/changepassword', updatePassword)
+
+router.delete('/dashboard/updateuser/deleteUser', deleteUser)
 
 router.get('/dashboard', getUser)
 

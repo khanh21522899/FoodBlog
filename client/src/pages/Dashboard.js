@@ -2,8 +2,8 @@ import { useEffect, useState } from "react"
 import './Dashboard.css'
 import {useAuthContext} from '../hooks/useAuthContext'
 import {Link} from 'react-router-dom'
-
-
+import Popup from 'reactjs-popup'
+import { useDeleteUser } from "../hooks/useDeleteUser"
 
 const Dashboard =  () =>{
     const {user} = useAuthContext()
@@ -12,7 +12,7 @@ const Dashboard =  () =>{
     const [avatar, setAvatar] = useState('')
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
-    
+    const [password , setPassword] = useState('')
 
     useEffect(()=>{
         if(!user){
@@ -43,9 +43,14 @@ const Dashboard =  () =>{
     },[user])
 
 
- 
+    const {deleteUser, deletePending, deleteError} = useDeleteUser()
 
-
+    const handleClick = async (e)=>{
+        e.preventDefault()
+        await deleteUser(password)
+        setPassword('')
+        
+    }
 
     return(
         <div className = 'dashboard'>
@@ -65,6 +70,19 @@ const Dashboard =  () =>{
                     <p>Your email: {email}</p>
   
                     <Link to='/auth/dashboard/updateuser'>Change Information</Link>
+
+                    <Popup trigger=
+                        {<button> Delete User </button>}
+                        position="bottom center">
+                        <label> Password : 
+                            <input
+                                onChange={(e)=> setPassword(e.target.value)}
+                                value = {password}
+                            />
+                        </label>
+                        <button disabled ={deletePending} onClick={handleClick}>Confirm Password</button>
+                        <p>{deleteError}</p>
+                    </Popup>
                 </div>
             </div>
         </div>

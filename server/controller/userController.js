@@ -16,13 +16,23 @@ const getUser = async (req, res) =>{
         res.status(400).json({error:error.message})
     }
 }
-
+ const deleteUser = async (req, res) =>{
+    try{
+        const _id = req.user
+        const {password} = req.body
+        const user = await User.delete(_id, password)
+        res.status(200).json({message:'Delete sucessfully'})
+    }
+    catch (error){
+        res.status(400).json({error:error.message})
+    }
+ }
 
 const updateName = async(req, res)=>{
     try{
         const _id = req.user
         const {name} = req.body
-        user = await User.findByIdAndUpdate(_id, {name: name})
+        const user = await User.findByIdAndUpdate(_id, {name: name})
         res.status(200).json({message: 'Update name sucessfully'})
     }
     catch (error){
@@ -34,7 +44,7 @@ const updateAvatar = async(req, res)=>{
     try{
         const _id = req.user
         const {avatar} = req.body
-        user = await User.findByIdAndUpdate(_id, {avatar: avatar})
+        const user = await User.findByIdAndUpdate(_id, {avatar: avatar})
         res.status(200).json({message: 'Update avatar sucessfully'})
     }
     catch (error){
@@ -47,7 +57,7 @@ const updateEmail = async(req, res)=>{
         const _id = req.user
         const {email} = req.body
         
-        user = await User.updateEmail(_id, email)
+        const user = await User.updateEmail(_id, email)
         res.status(200).json({message: `Your new email is ${email}`})
     }
     catch (error){
@@ -61,7 +71,7 @@ const updatePassword = async (req, res)=>{
         
         const {oldPassword, newPassword} = req.body
         
-        user = await User.updatePassword(_id, oldPassword, newPassword)
+        const user = await User.updatePassword(_id, oldPassword, newPassword)
         res.status(200).json({message: 'Update password sucessfully'})
     }
     catch (error){
@@ -110,4 +120,4 @@ const signupUser = async (req, res)=> {
     }
 }
 
-module.exports = {loginUser, signupUser, updatePassword, getUser, updateEmail, updateName, updateAvatar}
+module.exports = {loginUser, signupUser, updatePassword, getUser, updateEmail, updateName, updateAvatar, deleteUser}

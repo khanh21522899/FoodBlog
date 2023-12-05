@@ -1,9 +1,8 @@
-
+import { useAuthContext } from "../hooks/useAuthContext"
 
 
 const Home = () =>{
-
-
+    
 
     return (
         <div>
