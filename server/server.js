@@ -1,5 +1,6 @@
 const express = require('express')
 const BlogRoutes = require('./routes/BlogsRoute')
+const userRoutes = require('./routes/userRoutes')
 require('dotenv').config()
 const mongoose = require('mongoose')
 const cors = require('cors')
@@ -12,14 +13,17 @@ const app = express()
 app.use(cors());
 
 
+
 //use middleware
-app.use(express.json())
+app.use(express.json({ limit: '25mb' }))
+
 
 app.use(morgan('combined')); // 'combined' is one of the predefined log formats
 
 
 //Routes
 app.use('/api/v1/blogs', BlogRoutes);
+app.use('/auth', userRoutes)
 
 
 //Error handling middleware
@@ -27,14 +31,17 @@ app.use((error, req, res, next) => {
   res.status(400).json({ success: false, error: error.message });
 })
 
-  
+
 //connecting to DB
 mongoose.connect(process.env.URI)
   .then(() => {
     //make the server listening on port 4567
     app.listen(process.env.PORT, () => {
-      console.log('connect & listen on PORT: ' + process.env.PORT)
+      console.log('connect & listen')
     })
+  })
+  .catch((e) => {
+    console.log(e)
   })
   .catch((e) => {
     console.log(e)
