@@ -19,7 +19,11 @@ export const AuthReducer = (state, action) => {
 }
 
 
-export const AuthContextProvider = ({ children }) => {
+type AuthProp = {
+
+}
+
+export const AuthContextProvider = ({ children }: AuthProp) => {
 
   const [state, dispatch] = useReducer(AuthReducer, { user: null })
   const [isLoading, setIsLoading] = useState(true);

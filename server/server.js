@@ -5,6 +5,8 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const cors = require('cors')
 const morgan = require('morgan')
+const errorHandler = require("./middleware/error/errorHandler.js")
+const route = require("./routes/index.js")
 
 
 //create the server
@@ -24,6 +26,8 @@ app.use(morgan('combined')); // 'combined' is one of the predefined log formats
 //Routes
 app.use('/api/v1/blogs', BlogRoutes);
 app.use('/auth', userRoutes)
+app.use("/recipe", route);
+app.use(errorHandler);
 
 
 //Error handling middleware
