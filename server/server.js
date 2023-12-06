@@ -1,32 +1,19 @@
-const express = require('express')
-const BlogRoutes = require('./routes/BlogsRoute')
-require('dotenv').config()
-const mongoose = require('mongoose')
+import express from "express";
+import dotenv from "dotenv";
+import errorHandler from "./src/Middlewares/error/errorHandler.js";
+import connectDatabase from "./src/Helpers/database/databaseConnect.js";
+import route from "./src/Routers/index.js";
 
+const PORT = process.env.PORT || 5000;
 
-//create the server
-const app = express()
+dotenv.config();
+const app = express();
 
-//use middleware
-app.use(express.json)
+app.use(express.json());
+app.use("/", route);
+app.use(errorHandler);
 
-
-
-
-//Routes
-
-
-
-//connecting to DB
-mongoose.connect(process.env.URI)
-    .then(()=>{
-         //make the server listening on port 4567
-        app.listen(process.env.PORT, ()=>{
-            console.log('connect & listen')
-        })
-    })
-    .catch((e)=>{
-        console.log(e)
-    })
-
-
+await connectDatabase();
+app.listen(PORT, () => {
+  console.log(`Server running on port  ${PORT} : ${process.env.NODE_ENV}`);
+});
