@@ -1,5 +1,5 @@
 import Navbar from './components/Navbar'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext';
 
 
@@ -8,7 +8,6 @@ import Signup from './pages/SignupPage';
 import Home from './pages/FakeHome';
 import Dashboard from './pages/Dashboard';
 import UpdateUser from './pages/UpdateUser';
-import { Blog } from './components/blog';
 import CreateBlog from './components/createBlog/createBlog.js';
 import BlogDetail from './pages/BlogDetail.js'
 
@@ -21,6 +20,10 @@ function App() {
   return (
     <div className='App'>
       <BrowserRouter>
+        <div className="navbar">
+          <Navbar user={user} />
+
+        </div>
 
         <div className='Pages'>
           <Routes>
@@ -30,19 +33,27 @@ function App() {
             />
             <Route
               path='/auth/login'
-              element={!user ? <Login /> : <Home />}
+              element={!user ? <Login /> : <Navigate to="/" />}
             />
             <Route
               path='/auth/signup'
-              element={!user ? <Signup /> : <Home />}
+              element={!user ? <Signup /> : <Navigate to="/" />}
             />
             <Route
               path='/auth/dashboard'
-              element={user ? <Dashboard /> : <Login />}
+              element={user ? <Dashboard /> : <Navigate to="/auth/login" />}
             />
             <Route
               path='/auth/dashboard/updateuser'
-              element={user ? <UpdateUser /> : <Login />}
+              element={user ? <UpdateUser /> : <Navigate to="/auth/login" />}
+            />
+            <Route
+              path='/blogs/create-blog'
+              element={<CreateBlog />}
+            />
+            <Route
+              path='/blogs/:id'
+              element={<BlogDetail />}
             />
           </Routes>
 

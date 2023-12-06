@@ -25,10 +25,10 @@ const BlogCard = ({ data }) => {
         </div>
 
         <div className="blogcard-author">
-          <img className="blogcard-author-img" src={author.image} alt="" />
+          <img className="blogcard-author-img" src={author?.image} alt="" />
           <div className="blogcard-author-info">
             <div style={{ color: "gray", fontSize: "0.9rem", fontStyle: "italic", fontWeight: "bold" }}>Author</div>
-            <div>{author.name}</div>
+            <div>{author?.name}</div>
           </div>
         </div>
       </div>

@@ -1,4 +1,6 @@
 .blogs-layout {
+  display: flex;
+
 }
 
 
@@ -13,10 +15,7 @@
 
 .blogs-related {
   width: 25rem;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  position: fixed;
+  height: 100vh;
   box-shadow: 0 0 10px rgba(0,0,0,0.6);
   
 }

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../../styles/blog/blogcreate.style.css'
-
+import { useAuthContext } from '../../hooks/useAuthContext';
 const CreateBlog = () => {
+  const { user } = useAuthContext();
   const [blogData, setBlogData] = useState({
     title: '',
     duration: 0,
@@ -12,6 +13,7 @@ const CreateBlog = () => {
   });
   const [selectedImages, setSelectedImages] = useState([])
 
+  console.log(blogData);
 
   const handleChange = (e) => {
     setBlogData({
@@ -46,9 +48,17 @@ const CreateBlog = () => {
 
     try {
       // Assuming your server is running on http://localhost:3001
-      const response = await axios.post('http://localhost:4567/api/v1/blogs/create-blog', blogData);
+      const response = await fetch('/api/v1/blogs/create-blog', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+          'authorization': `Bearer ${user.token}`
+        },
+        body: JSON.stringify(blogData)
+      })
+      const data = await response.json();
 
-      console.log('Blog created successfully:', response.data);
+      console.log('Blog created successfully:', data);
 
       // Optionally, you can redirect the user to the created blog post page or do something else.
     } catch (error) {
@@ -72,7 +82,7 @@ const CreateBlog = () => {
 
         <label>Images (comma-separated URLs):</label>
         <input type="file" onChange={handleImageChange} accept="image/*" />
-        
+
         {/* Display the selected images */}
         {selectedImages.map((image, index) => (
           <img key={index} src={image} alt={`Preview ${index + 1}`} className="image-preview" />
@@ -89,4 +99,4 @@ const CreateBlog = () => {
 
 export default CreateBlog;
 
- 
+

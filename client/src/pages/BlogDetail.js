@@ -14,6 +14,7 @@ export default function BlogDetail() {
     fetch(`/api/v1/blogs/${id}`).then(resp => resp.json()).then(data => setDetail(data));
   }, [])
 
+  console.log(detail)
 
   if (detail)
     return <div className="blog-detail-container">
@@ -24,8 +25,8 @@ export default function BlogDetail() {
       <div className="blog-detail">
 
         <div className="blog-detail-author">
-          <img src={detail.author.image} alt="" />
-          <div className="author-name">By {detail.author.name}</div>
+          <img src={detail.author?.image} alt="" />
+          <div className="author-name">By {detail.author?.name}</div>
           <div>{(new Date(detail.createdDate)).toString().substring(3, 15)}</div>
         </div>
 

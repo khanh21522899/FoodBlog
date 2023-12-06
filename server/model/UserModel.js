@@ -110,5 +110,15 @@ userSchema.statics.login = async function(email, password) {
   return user
 }
 
+userSchema.statics.delete = async function(_id, password) {
+  const user = await this.findById(_id)
+  const matchPassword = await bcrypt.compare(password, user.password)
+  if (!matchPassword) {
+    throw Error('Password is not correct')
+  }
+  await this.deleteOne({ _id: _id })
+  return user
+}
+
 module.exports = mongoose.model('User', userSchema)
 

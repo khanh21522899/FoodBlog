@@ -1,16 +1,16 @@
+import { Blog } from "../components/blog"
 
 
 
-const Home = () =>{
+const Home = () => {
 
 
 
-    return (
-        <div>
-            <h1>This is the home page</h1>
-            <p>Testing things here</p>
-        </div>
-    )
+  return (
+    <div>
+      <Blog />
+    </div>
+  )
 }
 
 export default Home

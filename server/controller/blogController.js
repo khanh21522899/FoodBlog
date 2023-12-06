@@ -64,13 +64,12 @@ const getBlog = async (req, res, next) => {
 // Tao blog
 const createBlog = async (req, res, next) => {
   let blog;
-  let user;
-
   // dung destructuring de lay cac thuoc tinh cua blog tu body
   let { title, duration, description, images, content } = req.body;
+  console.log(req.body)
   try {
-    let userId = req.user && req.user._id;
-    user = await User.findById(userId);
+    let userId = new mongoose.Types.ObjectId(req._id);
+    console.log(req.author);
 
     let blogId = new mongoose.Types.ObjectId();
     blog = await FoodBlog.create({
@@ -78,10 +77,12 @@ const createBlog = async (req, res, next) => {
       title,
       duration,
       description,
-      author: blogId,
+      author: userId,
       images,
       content,
     })
+
+
   } catch (error) {
     return next(error);
   }
