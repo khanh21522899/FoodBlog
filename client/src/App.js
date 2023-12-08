@@ -21,7 +21,7 @@ function App() {
     <div className='App'>
       <BrowserRouter>
         <div className="navbar">
-          <Navbar user={user} />
+          <Navbar />
 
         </div>
 
@@ -49,7 +49,7 @@ function App() {
             />
             <Route
               path='/blogs/create-blog'
-              element={<CreateBlog />}
+              element={user ?<CreateBlog /> :<Navigate to="/auth/login" />}
             />
             <Route
               path='/blogs/:id'

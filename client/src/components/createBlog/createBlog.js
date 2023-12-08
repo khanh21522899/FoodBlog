@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../../styles/blog/blogcreate.style.css'
 import { useAuthContext } from '../../hooks/useAuthContext';
+
+
 const CreateBlog = () => {
   const { user } = useAuthContext();
   const [blogData, setBlogData] = useState({
