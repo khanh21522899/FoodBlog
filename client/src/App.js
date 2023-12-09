@@ -49,7 +49,7 @@ function App() {
             />
             <Route
               path='/blogs/create-blog'
-              element={user ?<CreateBlog /> :<Navigate to="/auth/login" />}
+              element={user ? <CreateBlog /> : <Navigate to="/auth/login" />}
             />
             <Route
               path='/blogs/:id'

@@ -4,6 +4,7 @@ import { useAuthContext } from '../hooks/useAuthContext'
 import { Link } from 'react-router-dom'
 import Popup from "reactjs-popup"
 import { useDeleteUser } from "../hooks/useDeleteUser"
+import { Blog } from "../components/blog"
 
 
 const Dashboard = () => {
@@ -60,7 +61,7 @@ const Dashboard = () => {
 
   return (
     <div className='dashboard'>
-      <div> blog card</div>
+      <div><Blog filterByUser /></div>
       <div className="info">
         <h3>User Information</h3>
 

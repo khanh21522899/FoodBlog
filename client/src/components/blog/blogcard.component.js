@@ -1,7 +1,9 @@
+import { useAuthContext } from "../../hooks/useAuthContext";
 import "../../styles/blog/blogcard.style.css"
 import { useNavigate } from 'react-router-dom'
 
 const BlogCard = ({ data }) => {
+  const { user } = useAuthContext();
   const { title, createdDate, duration, description, content, _id, images, author } = data;
   // Em dung useNavigate o day thay cho useHistory o ban cu~ - Co the sua lai de su dung useHistory
   const navigate = useNavigate();
@@ -29,6 +31,7 @@ const BlogCard = ({ data }) => {
           <div className="blogcard-author-info">
             <div style={{ color: "gray", fontSize: "0.9rem", fontStyle: "italic", fontWeight: "bold" }}>Author</div>
             <div>{author?.name}</div>
+            {author === user?.id && <button>Edit</button>}
           </div>
         </div>
       </div>
