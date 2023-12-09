@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import Popup from "reactjs-popup"
 import { useDeleteUser } from "../hooks/useDeleteUser"
 
+
 const Dashboard = () => {
   const { user } = useAuthContext()
 
@@ -13,6 +14,7 @@ const Dashboard = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
 
 
 
