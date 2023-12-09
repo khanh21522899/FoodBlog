@@ -11,9 +11,13 @@ const BlogCard = ({ data }) => {
   const moveToPost = () => {
     navigate(`/blogs/${_id}`)
   }
+  const handleEdit = () =>{
+    navigate ('/recipe/:id/edit')
+  }
 
   if (!data.length)
     return (
+      <div>
       <div className="blogcard" onClick={moveToPost}>
         <div className="blogcard-img">
           <img src={images[0] ?? "/batman.png"} alt="/batman.png" onError={e => {
@@ -31,8 +35,14 @@ const BlogCard = ({ data }) => {
           <div className="blogcard-author-info">
             <div style={{ color: "gray", fontSize: "0.9rem", fontStyle: "italic", fontWeight: "bold" }}>Author</div>
             <div>{author?.name}</div>
-            {author === user?.id && <button>Edit</button>}
+            
           </div>
+        </div>
+        
+      </div>
+        <div className="mngBtn">
+          {author === user?.id && <button onClick={handleEdit}>Edit</button>}
+          {author === user?.id && <button>Delete</button>}
         </div>
       </div>
     )

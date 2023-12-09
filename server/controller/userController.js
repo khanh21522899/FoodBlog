@@ -102,7 +102,7 @@ const signupUser = async (req, res) => {
     //assign user token
     const userToken = createUserToken(user._id)
     //if everythings ok response to client with status 200 and the token
-    res.status(200).json({ email, token: userToken })
+    res.status(200).json({ email, id: user._id, token: userToken })
 
   } catch (error) {
     //if there 's an error return with response status 400

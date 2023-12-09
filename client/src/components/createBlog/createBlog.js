@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../../styles/blog/blogcreate.style.css'
 import { useAuthContext } from '../../hooks/useAuthContext';
-
+import { useNavigate } from 'react-router-dom';
 
 const CreateBlog = () => {
+  const navigate = useNavigate()
   const { user } = useAuthContext();
   const [blogData, setBlogData] = useState({
     title: '',
@@ -47,7 +48,7 @@ const CreateBlog = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     try {
       // Assuming your server is running on http://localhost:3001
       const response = await fetch('/api/v1/blogs/create-blog', {
@@ -61,6 +62,7 @@ const CreateBlog = () => {
       const data = await response.json();
 
       console.log('Blog created successfully:', data);
+      navigate('/')
 
       // Optionally, you can redirect the user to the created blog post page or do something else.
     } catch (error) {

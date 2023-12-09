@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard';
 import UpdateUser from './pages/UpdateUser';
 import CreateBlog from './components/createBlog/createBlog.js';
 import BlogDetail from './pages/BlogDetail.js'
+import EditRecipe from "./components/RecipePages/EditRecipe";
 
 
 function App() {
@@ -55,6 +56,11 @@ function App() {
               path='/blogs/:id'
               element={<BlogDetail />}
             />
+
+            <Route 
+              exact path="/recipe/:id/edit" 
+              element={<EditRecipe />} />
+              
           </Routes>
 
         </div>
