@@ -7,7 +7,7 @@ const FoodBlogSchema = new Schema({
   title: String,
   duration: Number,
   description: String,
-  author: { type: Schema.Types.ObjectId, ref: 'User' },
+  author: Schema.Types.ObjectId,
   images: [{ type: String }],
   content: String,
   createdDate: { type: Date, default: Date.now },
