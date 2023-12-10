@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
 const Review = require("../model/ReviewModel");
 async function createReview(req, res, next) {
-  const { userId, blogId, content, rating } = req.body;
+  const { userId, blogId, content, rating, date } = req.body;
   const review = new Review({
     userId: userId,
     blogId: blogId,
     content: content,
     rating: rating,
+    date: date,
   });
   try {
     const result = await review.save();
@@ -29,7 +30,10 @@ async function getAllReviews(req, res, next) {
   try {
     const reviews = await Review.find({ blogId: blogId })
       .limit(3 * pages)
-      .populate("userId");
+      .populate({
+        path: "userId",
+        select: "name avatar",
+      });
 
     res.status(200).json({
       success: true,

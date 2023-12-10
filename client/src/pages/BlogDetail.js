@@ -17,11 +17,11 @@ export default function BlogDetail() {
   }, []);
 
   if (detail) {
-    console.log(detail);
+    // console.log(detail);
     return (
       <div className="blog-detail-container">
         <img
-          src={detail.images.length ? detail.images[0] : "/batman.png"}
+          src={detail.images?.length ? detail.images[0] : "/batman.png"}
           onError={(e) => {
             e.target.src = "/noimage.jpeg";
           }}
@@ -29,8 +29,8 @@ export default function BlogDetail() {
         />
         <div className="blog-detail">
           <div className="blog-detail-author">
-            <img src={detail.author.image} alt="" />
-            <div className="author-name">By {detail.author.name}</div>
+            <img src={detail.author?.image} alt="" />
+            <div className="author-name">By {detail.author?.name}</div>
             <div>
               {new Date(detail.createdDate).toString().substring(3, 15)}
             </div>
