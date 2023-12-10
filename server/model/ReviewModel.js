@@ -1,6 +1,11 @@
 const { Schema, ...mongoose } = require("mongoose");
 const ReviewSchema = new Schema({
-  userId: Schema.Types.ObjectId,
+  userId: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   blogId: Schema.Types.ObjectId,
   content: String,
   rating: Number,

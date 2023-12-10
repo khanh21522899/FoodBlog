@@ -1,17 +1,19 @@
+const mongoose = require("mongoose");
 const Review = require("../model/ReviewModel");
 async function createReview(req, res, next) {
   const { userId, blogId, content, rating } = req.body;
   const review = new Review({
-    userId,
-    blogId,
-    content,
-    rating,
+    userId: userId,
+    blogId: blogId,
+    content: content,
+    rating: rating,
   });
   try {
-    await review.save();
+    const result = await review.save();
+    console.log("Result: ", result);
     res.status(200).json({
       success: true,
-      review,
+      review: review,
     });
   } catch (error) {
     next(error);
@@ -19,8 +21,16 @@ async function createReview(req, res, next) {
 }
 
 async function getAllReviews(req, res, next) {
+  let { blogId } = req.params;
+  const { pages } = req.query;
+  console.log(req.query);
+  blogId = new mongoose.Types.ObjectId(blogId);
+
   try {
-    const reviews = await Review.find();
+    const reviews = await Review.find({ blogId: blogId })
+      .limit(3 * pages)
+      .populate("userId");
+
     res.status(200).json({
       success: true,
       reviews,
@@ -29,6 +39,19 @@ async function getAllReviews(req, res, next) {
     next(error);
   }
 }
+
+// async function getReviewsFromBlog(req, res, next) {
+//   const { blogId } = req.params;
+//   try {
+//     const reviews = await Review.find({ blogId: blogId });
+//     res.status(200).json({
+//       success: true,
+//       reviews,
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// }
 
 async function updateReview(req, res, next) {
   const { id } = req.params;

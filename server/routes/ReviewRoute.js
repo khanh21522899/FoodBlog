@@ -8,7 +8,7 @@ const {
   deleteReview,
 } = require("../controller/reviewController");
 
-router.get("/", getAllReviews);
+router.get("/:blogId", getAllReviews);
 router.post("/", createReview);
 router.put("/:id", updateReview);
 router.delete("/:id", deleteReview);
