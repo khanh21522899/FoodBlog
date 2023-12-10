@@ -1,9 +1,12 @@
 const express = require("express");
 const BlogRoutes = require("./routes/BlogsRoute");
+const userRoutes = require("./routes/userRoutes");
 require("dotenv").config();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
+const errorHandler = require("./middleware/error/errorHandler.js");
+const route = require("./routes/index.js");
 const ReviewRoutes = require("./routes/ReviewRoute");
 
 //create the server
@@ -12,12 +15,17 @@ const app = express();
 app.use(cors());
 
 //use middleware
-app.use(express.json());
+app.use(express.json({ limit: "25mb" }));
+
+app.use(morgan("combined")); // 'combined' is one of the predefined log formats
 
 app.use(morgan("combined")); // 'combined' is one of the predefined log formats
 
 //Routes
 app.use("/api/v1/blogs", BlogRoutes);
+app.use("/auth", userRoutes);
+app.use("/recipe", route);
+app.use(errorHandler);
 app.use("/api/v1/reviews", ReviewRoutes);
 
 //Error handling middleware
@@ -31,8 +39,11 @@ mongoose
   .then(() => {
     //make the server listening on port 4567
     app.listen(process.env.PORT, () => {
-      console.log("connect & listen on PORT: " + process.env.PORT);
+      console.log("connect & listen");
     });
+  })
+  .catch((e) => {
+    console.log(e);
   })
   .catch((e) => {
     console.log(e);

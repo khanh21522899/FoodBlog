@@ -3,17 +3,22 @@ import BlogCard from "./blogcard.component";
 import "../../styles/blog/blog.style.css";
 import Pagination from "./pagination.component";
 import Review from "./review/review.component";
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const pagesShown = 5;
 
-const Blog = () => {
+const Blog = ({ filterByUser }) => {
+  const { user } = useAuthContext();
   const [{ blogs, totalCount }, setBlogs] = useState({
     blogs: undefined,
     totalCount: 0,
   });
+  console.log(filterByUser);
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState([]);
   const [reviews, setReviews] = useState([1, 2, 3]);
+  const navigate = useNavigate();
 
   const arrayRange = (start, stop, step) =>
     Array.from(
@@ -24,7 +29,20 @@ const Blog = () => {
   useEffect(() => {
     /* Fetch blog data here */
     async function fetchBlogs() {
-      let resp = await fetch(`api/v1/blogs?page=${page}`);
+      const url = `/api/v1/blogs?page=${page}&filterByUser=${filterByUser}`;
+      console.log(user);
+      let resp = await fetch(
+        `/api/v1/blogs?page=${page}&filterByUser=${filterByUser}`,
+        filterByUser && user
+          ? {
+              headers: {
+                "Content-type": "application/json",
+                userid: `${user.id}`,
+              },
+              method: "GET",
+            }
+          : null
+      );
       let data = await resp.json();
       setBlogs({
         blogs: data.blogs,
@@ -61,58 +79,17 @@ const Blog = () => {
   }, [page, totalCount]);
 
   return (
-    <div className="blogs-layout">
-      {/* Cac blog */}
-      <div className="blogs">
-        {blogs
-          ? blogs.map((blog, index) => <BlogCard key={index} data={blog} />)
-          : "Loading"}
-      </div>
-
-      {/* Component phan trang */}
-      <Pagination currentPage={{ page, setPage }} pages={pages} />
-
-      {/* Cac blog lien quan */}
-      <div className="blogs-related">
-        <div className="blogs-related-content">
-          <div className="featured-blogs">
-            <h2>Featured blogs</h2>
-            <div>
-              <h3>Blog 1</h3>
-              <p>This is blog 1</p>
-            </div>
-            <div>
-              <h3>Blog 2</h3>
-              <p>This is blog 2</p>
-            </div>
-            <div>
-              <h3>Blog 3</h3>
-              <p>This is blog 3</p>
-            </div>
-          </div>
-
-          <div className="similar-blogs">
-            <h2>Similar blogs</h2>
-            <div>
-              <h3>Blog 1</h3>
-              <p>This is blog 1</p>
-            </div>
-            <div>
-              <h3>Blog 2</h3>
-              <p>This is blog 2</p>
-            </div>
-            <div>
-              <h3>Blog 3</h3>
-              <p>This is blog 3</p>
-            </div>
-          </div>
+    <div>
+      <div className="blogs-layout">
+        {/* Cac blog */}
+        <div className="blogs">
+          {blogs
+            ? blogs.map((blog, index) => <BlogCard key={index} data={blog} />)
+            : "Loading"}
         </div>
       </div>
-      <div className="Review">
-        {reviews.map((review, index) => (
-          <Review key={review} />
-        ))}
-      </div>
+      {/* Component phan trang */}
+      <Pagination currentPage={{ page, setPage }} pages={pages} />
     </div>
   );
 };

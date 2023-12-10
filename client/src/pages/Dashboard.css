@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;400&display=swap');
+
+.dashboard{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    font-family: Lato;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+}
+
+.info h3 {
+    font-size: 2rem;
+}
+
+.userInfo{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+}
+
+
+.userInfo input{
+   margin-left: 20px;
+}
+
+.userInfo a {
+    display:block;
+    text-align: center;
+    width: 200px;
+    text-decoration: none;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.userInfo a:hover {
+    background-color: lightcoral;
+}

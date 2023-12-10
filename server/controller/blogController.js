@@ -28,11 +28,19 @@ const getAllBlogs = async (req, res, next) => {
 const getBlogsFromPage = async (req, res, next) => {
   let blogs;
   let totalDocCount;
-  let { page } = req.query;
+
+  let { userid } = req.headers;
+  console.log("this is header:", req.headers);
+  let { page, filterByUser } = req.query;
+  console.log("userid: , filter: ", userid, filterByUser);
   try {
-    blogs = await FoodBlog.find()
+    console.log("filterbyuser && userid", userid != undefined && filterByUser);
+    blogs = await FoodBlog.find(
+      userid != undefined && filterByUser ? { author: userid } : null
+    )
       .skip((page - 1) * 12)
       .limit(12);
+    // blogs = await FoodBlog.find({ author: userid }).skip((page - 1) * 12).limit(12);
     totalDocCount = await FoodBlog.estimatedDocumentCount();
   } catch (error) {
     return next(error);
@@ -62,13 +70,12 @@ const getBlog = async (req, res, next) => {
 // Tao blog
 const createBlog = async (req, res, next) => {
   let blog;
-  let user;
-
   // dung destructuring de lay cac thuoc tinh cua blog tu body
   let { title, duration, description, images, content } = req.body;
+  console.log(req.body);
   try {
-    let userId = req.user && req.user._id;
-    user = await User.findById(userId);
+    let userId = req.user;
+    console.log("current userid: ", userId);
 
     let blogId = new mongoose.Types.ObjectId();
     blog = await FoodBlog.create({
@@ -76,7 +83,7 @@ const createBlog = async (req, res, next) => {
       title,
       duration,
       description,
-      author: blogId,
+      author: userId,
       images,
       content,
     });
