@@ -8,7 +8,6 @@ import "../../css/editRecipe.css";
 
 const EditRecipe = () => {
   const id = useParams().id;
-  console.log(id);
   const imageElm = useRef(null);
   const [loading, setLoading] = useState(true);
   //const [recipe, setRecipe] = useState({});
@@ -25,11 +24,12 @@ const EditRecipe = () => {
     const getDetailRecipe = async () => {
       setLoading(true);
       try {
-        const { data } = await axios.get(`/api/recipe/${id}`);
+        const {data}  = await axios.get(`/api/recipe/${id}`);
+        console.log(data);
         const blog = data.data;
         setTitle(blog.title);
         setDescription(blog.description);
-        setContent(blog.content.join("\n"));
+        setContent(blog.content + "\n");
         setImages(blog.images);
         //setPreviousImage(recipe.img);
         setLoading(false);
@@ -112,9 +112,9 @@ const EditRecipe = () => {
         <div className="RecipeImageField">
           <AiOutlineUpload />
           <div className="txt">
-            {imageElm.current.value === null
+            {imageElm?.current?.value === null
               ? "    Change the image in your recipe "
-              : imageElm.current.value.name}
+              : imageElm?.current?.value.name}
           </div>
           <input
             name="image"

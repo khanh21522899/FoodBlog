@@ -24,7 +24,7 @@ app.use(morgan("combined")); // 'combined' is one of the predefined log formats
 //Routes
 app.use("/api/v1/blogs", BlogRoutes);
 app.use("/auth", userRoutes);
-app.use("/recipe", route);
+app.use("/", route);
 app.use(errorHandler);
 app.use("/api/v1/reviews", ReviewRoutes);
 

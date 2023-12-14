@@ -18,7 +18,7 @@ export default function Review(prop) {
       content: comment,
       date: new Date(),
       rating: rating,
-    });
+    }, { headers: { "Content-Type": "application/json", "authorization": `Bearer ${user.token}` } });
     console.log(dataAxios);
     prop.fetchReview();
     setEditing(false);

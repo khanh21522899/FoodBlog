@@ -58,7 +58,7 @@ export default function BlogReviews() {
   };
   const handleDelete = async (e, id) => {
     e.preventDefault();
-    const dataAxios = await axios.delete(`/api/v1/reviews/${id}`);
+    const dataAxios = await axios.delete(`/api/v1/reviews/${id}`, { headers: { "Content-Type": "application/json", "authorization": `Bearer ${user?.token}` } });
     console.log(dataAxios, id);
     fetchReview();
   };
@@ -106,7 +106,7 @@ export default function BlogReviews() {
                     <button
                       className="primary"
                       type="submit"
-                      // onClick={fetchReview}
+                    // onClick={fetchReview}
                     >
                       Submit
                     </button>

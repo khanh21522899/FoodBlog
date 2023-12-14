@@ -39,7 +39,10 @@ const getBlogsFromPage = async (req, res, next) => {
       userid != undefined && filterByUser ? { author: userid } : null
     )
       .skip((page - 1) * 12)
-      .limit(12);
+      .limit(12)
+      .populate({
+        path: "author", select: "name avatar"
+      });
     // blogs = await FoodBlog.find({ author: userid }).skip((page - 1) * 12).limit(12);
     totalDocCount = await FoodBlog.estimatedDocumentCount();
   } catch (error) {

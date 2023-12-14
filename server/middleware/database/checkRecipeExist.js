@@ -1,4 +1,4 @@
-const Recipe = require("../../model/recipe.js");
+const Recipe = require("../../model/FoodBlogModel.js");
 const CustomError = require("../../Helpers/error/customError.js");
 
 const checkRecipeExist = async (req, res, next) => {

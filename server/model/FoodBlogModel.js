@@ -7,7 +7,7 @@ const FoodBlogSchema = new Schema({
   title: String,
   duration: Number,
   description: String,
-  author: Schema.Types.ObjectId,
+  author: { type: Schema.Types.ObjectId, ref: "User" },
   images: [{ type: String }],
   content: String,
   createdDate: { type: Date, default: Date.now },
@@ -23,7 +23,7 @@ const FoodBlogSchema = new Schema({
 //   next();
 // });
 
-FoodBlogSchema.pre("deleteOne", async function (next) {
+FoodBlogSchema.pre("deleteOne", async function(next) {
   const blog = await FoodBlog.findById(this._id);
 
   await Review.deleteMany({
