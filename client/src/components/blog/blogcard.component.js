@@ -20,6 +20,11 @@ const BlogCard = ({ data, refetch }) => {
     await refetch(_id);
   }
 
+  const handleAuthorInfo = async () =>{
+    
+    author? navigate(`/blogs/userinfo/${author._id}`) : navigate('/')
+  }
+
   if (!data.length)
     return (
       <div>
@@ -35,7 +40,7 @@ const BlogCard = ({ data, refetch }) => {
             <p className="blogcard-content-desc">{description.length <= 380 ? description : description.slice(0, 230) + '...'} <Link to={`/blogs/${_id}`} style={{ pointerEvents: "auto", cursor: "pointer" }} >See more</Link></p>
           </div>
 
-          <div className="blogcard-author">
+          <div className="blogcard-author" onClick={handleAuthorInfo}>
             <img className="blogcard-author-img" src={author?.avatar} alt="" />
             <div className="blogcard-author-info">
               <div style={{ color: "gray", fontSize: "0.9rem", fontStyle: "italic", fontWeight: "bold" }}>Author</div>

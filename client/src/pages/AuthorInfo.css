@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;400&display=swap');
+
+
+.authorInfo{
+    display: grid;
+    grid-template-rows: 1fr;
+    font-family: Lato;
+    justify-content: center;
+    text-align: center;
+    font-family: Lato;
+    font-size: 1.5rem;
+}
+.authorInfo img{
+    width: 300px;
+}

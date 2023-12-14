@@ -10,6 +10,7 @@ import UpdateUser from "./pages/UpdateUser";
 import CreateBlog from "./components/createBlog/createBlog.js";
 import BlogDetail from "./pages/BlogDetail.js";
 import EditRecipe from "./components/RecipePages/EditRecipe";
+import AuthorInfo from './pages/AuthorInfo.js'
 
 function App() {
   const { user } = useAuthContext();
@@ -44,6 +45,11 @@ function App() {
               path="/blogs/create-blog"
               element={user ? <CreateBlog /> : <Navigate to="/auth/login" />}
             />
+            <Route
+             path="/blogs/userinfo/:authorId" 
+             element={<AuthorInfo />} 
+             />
+
             <Route path="/blogs/:blogId" element={<BlogDetail />} />
 
             <Route exact path="/recipe/:id/edit" element={<EditRecipe />} />

@@ -1,5 +1,5 @@
 const express = require('express')
-const { deleteUser, loginUser, signupUser, updatePassword, getUser, updateEmail, updateName, updateAvatar } = require('../controller/userController.js')
+const { deleteUser, getInfo, loginUser, signupUser, updatePassword, getUser, updateEmail, updateName, updateAvatar } = require('../controller/userController.js')
 const requireAuth = require('../middleware/requireAuth.js')
 
 const router = express.Router()
@@ -12,9 +12,13 @@ router.post('/login', loginUser)
 //Signup Route
 router.post('/signup', signupUser)
 
-//check if user has already log in 
+
+//Blog Author Information
+router.get('/userinfo/:id', getInfo)
+
 
 //Dashboard Route
+//check if user has already log in 
 router.use(requireAuth)
 router.put('/dashboard/updateuser/changename', updateName)
 router.put('/dashboard/updateuser/changeavatar', updateAvatar)

@@ -18,6 +18,22 @@ const getUser = async (req, res) => {
   }
 };
 
+const getInfo = async (req, res) =>{
+  
+  try {
+    
+    const _id = req.params.id
+    const user = await User.findById({_id : _id})
+    
+    res
+      .status(200)
+      .json({ email: user.email, name: user.name, avatar: user.avatar });
+
+  } catch (error){
+    res.status(400).json({ error: error.message });
+  }
+}
+
 const updateName = async (req, res) => {
   try {
     const _id = req.user;
@@ -121,4 +137,5 @@ module.exports = {
   updateEmail,
   updateName,
   updateAvatar,
+  getInfo
 };
