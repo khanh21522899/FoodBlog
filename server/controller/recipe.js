@@ -44,7 +44,7 @@ const detailBlog = async (req, res) => {
 };
 
 const deleteBlog = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
   //const blog = await FoodBlog.findOne({ _id: id });
 
   //imageDelete(req, story.image);

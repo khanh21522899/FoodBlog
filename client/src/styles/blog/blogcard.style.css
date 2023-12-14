@@ -10,6 +10,8 @@
   transition: scale 0.4s;
 }
 
+
+
 .blogcard:hover {
   scale: 1.1;
 }
@@ -26,6 +28,12 @@
   object-fit: cover;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 8px;
+}
+
+.blogcard .mngBtn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }
 
 .blogcard-content {

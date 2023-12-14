@@ -1,8 +1,9 @@
 import { useAuthContext } from "../../hooks/useAuthContext";
 import "../../styles/blog/blogcard.style.css"
 import { useNavigate, Link } from 'react-router-dom'
+import axios from "axios";
 
-const BlogCard = ({ data }) => {
+const BlogCard = ({ data, refetch }) => {
   const { user } = useAuthContext();
   const { title, createdDate, duration, description, content, _id, images, author } = data;
   // Em dung useNavigate o day thay cho useHistory o ban cu~ - Co the sua lai de su dung useHistory
@@ -13,6 +14,10 @@ const BlogCard = ({ data }) => {
   }
   const handleEdit = () => {
     navigate(`/recipe/${_id}/edit`)
+  }
+  const handleDelete = async () => {
+    await axios.delete(`/api/recipe/${_id}/delete`);
+    await refetch(_id);
   }
 
   if (!data.length)
@@ -38,11 +43,11 @@ const BlogCard = ({ data }) => {
 
             </div>
           </div>
+          <div className="mngBtn">
+            {author?._id === user?.id && <button onClick={handleEdit}>Edit</button>}
+            {author?._id === user?.id && <button onClick={handleDelete}>Delete</button>}
+          </div>
 
-        </div>
-        <div className="mngBtn">
-          {author?._id === user?.id && <button onClick={handleEdit}>Edit</button>}
-          {author?._id === user?.id && <button>Delete</button>}
         </div>
       </div>
     )

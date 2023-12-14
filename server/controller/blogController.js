@@ -62,7 +62,7 @@ const getBlog = async (req, res, next) => {
   try {
     blog = await FoodBlog.findById(req.params.id).populate({
       path: "author",
-      select: "name image",
+      select: "name avatar",
     });
   } catch (error) {
     return next(error);

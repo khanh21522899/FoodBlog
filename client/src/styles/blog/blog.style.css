@@ -5,30 +5,26 @@
 
 
 .blogs {
+  width: 100%;
   padding: 2rem;
-  margin-top: 2rem;
+  margin: 2rem auto 0;
     display: grid;
   justify-content: center;
   row-gap: 3rem;
-  width: 63%;
 }
 
-.blogs-related {
-  width: 25rem;
-  height: 100vh;
-  box-shadow: 0 0 10px rgba(0,0,0,0.6);
-  
-}
-
-.blogs-related-content {
-  margin-left: 2rem;
-}
-
-
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 932px) {
   .blogs {
     grid-template-columns: repeat(2, 1fr) ;
-    width: 65%;
+
+  }
+
+}
+
+
+@media screen and (min-width: 1280px) {
+  .blogs {
+    grid-template-columns: repeat(3, 1fr) ;
 
   }
 
@@ -37,8 +33,7 @@
 
 @media screen and (min-width: 1660px) {
   .blogs {
-    grid-template-columns: repeat(3, 1fr) ;
-  width: 70%;
+    grid-template-columns: repeat(4, 1fr) ;
 
   }
 

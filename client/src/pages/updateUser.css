@@ -2,9 +2,9 @@
 *{
     font-family: Lato;
 }
-*{
-    margin-top: 10px;
-}
+/* *{ */
+/*     margin-top: 10px; */
+/* } */
 .updateUser{
     display: grid;
     grid-template-columns: 1fr 5fr 1fr;
