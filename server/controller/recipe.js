@@ -1,18 +1,18 @@
-const Recipe = require("../model/recipe.js");
+const FoodBlog = require("../model/FoodBlogModel.js");
 const imageDelete = require("../Helpers/handleImages/delete.js");
 
-const editRecipe = async (req, res) => {
+const editBlog = async (req, res) => {
   // const { slug } = req.params;
-  const { name, description, ingredients, methods, img, previousImage } =
-    req.body;
+  const { title, description, content, img } = req.body;
 
   const { id } = req.params;
-  const recipe = await Recipe.findOne({ _id: id });
+  const blog = await FoodBlog.findOne({ _id: id });
 
-  recipe.Name = name;
-  recipe.Description = description;
-  recipe.Ingredients = ingredients;
-  recipe.Method = methods;
+  blog.title = title;
+  blog.description = description;
+  blog.content = content;
+  blog.images.push(img);
+  blog.updatedDate = Date.now();
 
   //recipe.img = req.localSavedImage;
 
@@ -24,38 +24,41 @@ const editRecipe = async (req, res) => {
   //   // old image locatıon delete
   //   previousImage && imageDelete(req, previousImage);
   // }
-  await recipe.save();
+  await blog.save();
 
   return res.status(200).json({
     success: true,
-    data: recipe,
+    data: blog,
   });
 };
 
-const detailRecipe = async (req, res) => {
+const detailBlog = async (req, res) => {
   const { id } = req.params;
 
-  const recipe = await Recipe.findOne({ _id: id }); //.populate("author");
+  const blog = await FoodBlog.findOne({ _id: id }); //.populate("author");
 
   return res.status(200).json({
     success: true,
-    data: recipe,
+    data: blog,
   });
 };
 
-const deleteRecipe = async (req, res) => {
-  const { slug } = req.params;
-  const recipe = await Recipe.findOne({ slug: slug });
+const deleteBlog = async (req, res) => {
+  const { id } = req.body;
+  //const blog = await FoodBlog.findOne({ _id: id });
 
-  imageDelete(req, story.image);
+  //imageDelete(req, story.image);
 
-  await recipe.remove();
+  await FoodBlog.deleteOne({ _id: id });
 
   return res.status(200).json({
     success: true,
-    message: "Recipe deleted succesfully ",
+    message: "Blog deleted succesfully ",
   });
 };
 
-
-module.exports = { editRecipe, detailRecipe, deleteRecipe }; 
+module.exports = {
+  editRecipe: editBlog,
+  detailRecipe: detailBlog,
+  deleteRecipe: deleteBlog,
+};
