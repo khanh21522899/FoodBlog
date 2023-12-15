@@ -21,7 +21,7 @@ const Login = () =>{
         <form className='login' onSubmit={handleSubmit}>
             <h3>Log in</h3>
  
-            <label>Your email: 
+            <label>Email: 
             <input
                 type="email"
                 onChange= {(e)=>setEmail(e.target.value)}
@@ -29,7 +29,7 @@ const Login = () =>{
                 
             />
             </label>
-            <label>Your password: 
+            <label>Password: 
             <input
                 type="password"
                 onChange= {(e)=>setPassword(e.target.value)}

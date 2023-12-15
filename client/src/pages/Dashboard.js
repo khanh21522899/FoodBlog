@@ -6,8 +6,9 @@ import Popup from "reactjs-popup"
 import { useDeleteUser } from "../hooks/useDeleteUser"
 import { Blog } from "../components/blog"
 
+
 const Dashboard = () => {
-  const { user } = useAuthContext()
+  const { user , dispatch} = useAuthContext()
 
 
   const [avatar, setAvatar] = useState('')
@@ -30,7 +31,10 @@ const Dashboard = () => {
       })
       const res = await response.json()
       if (!response.ok) {
-        console.log('cannot fetch data')
+        window.alert('token expired')
+        localStorage.removeItem('user')
+        dispatch({type:'LOGOUT'})
+        
       }
       if (response.ok) {
         const { name, email, avatar } = res

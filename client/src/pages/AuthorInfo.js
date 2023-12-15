@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import './AuthorInfo.css'
+import './AuthorInfo.css';
 const AuthorInfo = () => {
     const {authorId} = useParams()
 
@@ -27,7 +27,7 @@ const AuthorInfo = () => {
       },[])
 
     return (
-      <div className="authorInfo">
+      <div className="authorinfo">
         <p>Name: {name}</p>
         <p>Email: {email}</p>
         <p>Avatar:</p>
