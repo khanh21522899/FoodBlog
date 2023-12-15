@@ -20,6 +20,10 @@ export default function BlogDetail() {
   // set data cho bien detail
   //
   //
+  const handleAuthorInfo = async () => {
+
+    detail?.author ? navigate(`/blogs/userinfo/${detail.author._id}`) : navigate('/')
+  }
   const changeImage = (e) => {
     let offset = e.target.dataset.direction === "next" ? 1 : -1;
     let isInRange = currentImageIndex + offset >= 0 && currentImageIndex + offset < detail?.images?.length;
@@ -55,8 +59,8 @@ export default function BlogDetail() {
         </div>
         <div className="blog-detail">
           <div className="blog-detail-author">
-            <img src={detail.author?.avatar} alt="" />
-            <div className="author-name">By {detail.author?.name}</div>
+            <img src={detail.author?.avatar} alt="" onClick={handleAuthorInfo} />
+            <div className="author-name" onClick={handleAuthorInfo} >By {detail.author?.name}</div>
             <div>
               {new Date(detail.createdDate).toString().substring(3, 15)}
             </div>
