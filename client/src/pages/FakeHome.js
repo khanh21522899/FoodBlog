@@ -5,7 +5,11 @@ import { useAuthContext } from '../hooks/useAuthContext'
 
 const Home = () => {
   const {user, dispatch} = useAuthContext()
+
   const revalidate =async() => {
+    if(!user){
+      return
+    }
     const response = await fetch('/auth/dashboard', {
       headers: {
         'authorization': `Bearer ${user.token}`

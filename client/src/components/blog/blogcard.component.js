@@ -49,8 +49,8 @@ const BlogCard = ({ data, refetch }) => {
             </div>
           </div>
           <div className="mngBtn">
-            {author?._id === user?.id && <button onClick={handleEdit}>Edit</button>}
-            {author?._id === user?.id && <button onClick={handleDelete}>Delete</button>}
+            {author && author?._id === user?.id && <button onClick={handleEdit}>Edit</button>}
+            {author && author?._id === user?.id && <button onClick={handleDelete}>Delete</button>}
           </div>
 
         </div>
