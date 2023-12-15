@@ -1,6 +1,7 @@
 import Navbar from "./components/Navbar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
+import { useEffect } from "react";
 
 import Login from "./pages/LoginPage";
 import Signup from "./pages/SignupPage";
@@ -13,7 +14,30 @@ import EditRecipe from "./components/RecipePages/EditRecipe";
 import AuthorInfo from './pages/AuthorInfo.js'
 
 function App() {
-  const { user } = useAuthContext();
+  const { user, dispatch } = useAuthContext();
+  const revalidate =async() => {
+    if(!user){
+      return
+    }
+    const response = await fetch('/auth/dashboard', {
+      headers: {
+        'authorization': `Bearer ${user.token}`
+      }
+    })
+    if (!response.ok) {
+      window.alert('token expired')
+      localStorage.removeItem('user')
+      dispatch({type:'LOGOUT'})
+      
+    }
+    if (response.ok) {
+      console.log('token accepted')
+    }
+  }
+
+  useEffect(()=>{
+    revalidate()
+  },[])
 
   return (
     <div className="App">
