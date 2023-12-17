@@ -63,7 +63,7 @@ const Dashboard = () => {
 
   return (
     <div className='dashboard'>
-      <div><Blog filterByUser /></div>
+      <div className="blogContainer"><Blog filterByUser /></div>
       <div className="info">
         <h3>User Information</h3>
 

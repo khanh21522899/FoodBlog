@@ -60,7 +60,7 @@ const UpdateUser = ()=>{
         <div className="updateUser">
             <h3>Change User Infomation</h3>
             <div className="form">
-                <img id='avatar' width='100px' height='100px' alt='This is the avatar of user' src={avatar}/>
+                <img id='avatar' width='100px' height='100px' alt='User Avatar' src={avatar}/>
                     
                 <label> Change Avatar
                     <input
