@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import './AuthorInfo.css';
+import Navbar from "../components/Navbar";
 const AuthorInfo = () => {
     const {authorId} = useParams()
 
@@ -24,15 +25,23 @@ const AuthorInfo = () => {
 
       useEffect(()=>{
         loadData()
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0
       },[])
 
     return (
-      <div className="authorinfo">
-        <p>Name: {name}</p>
-        <p>Email: {email}</p>
-        <p>Avatar:</p>
-        <img src={avatar}/>
+      <div>
+        <div className="navbar-container">
+          <Navbar />
+        </div>
+        <div className="authorinfo">
+          <p>Name: {name}</p>
+          <p>Email: {email}</p>
+          <p>Avatar:</p>
+          <img src={avatar}/>
+        </div>
       </div>
+      
     )
   }
   

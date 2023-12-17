@@ -1,8 +1,8 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import './Signup.css'
 import {useSignup} from '../hooks/useSignup'
 import {Link} from 'react-router-dom'
-
+import Navbar from "../components/Navbar";
 const Signup = () =>{
 
     const [name, setName] = useState('')
@@ -16,37 +16,45 @@ const Signup = () =>{
         await signup(name, email, password)
     }
 
+    useEffect(()=>{
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0
+    })
 
     return(
-        <form className='signup' onSubmit={handleSubmit}>
-            <h3>Sign up</h3>
+        <div>
+            <div className="navbar-container">
+            <Navbar />
+             </div>
+            <form className='signup' onSubmit={handleSubmit}>
+                <h3>Sign up</h3>
 
-            <label>Your name: 
-            <input
-                onChange= {(e)=>setName(e.target.value)}
-                value = {name}
-            />
-            </label>
-            <label>Your email: 
-            <input
-                type="email"
-                onChange= {(e)=>setEmail(e.target.value)}
-                value = {email}
-            />
-            </label>
-            <label>Your password: 
-            <input
-                type="password"
-                onChange= {(e)=>setPassword(e.target.value)}
-                value = {password}
-            />
-            </label>
-            <input disabled={isLoading} id='submit-btn'
-            type='submit'
-            />
-            {error && <div className='error'> {error} </div>}
-            <Link to='/auth/login'>To Login</Link>
-        </form>
+                <label>Your name: </label>
+                <input
+                    onChange= {(e)=>setName(e.target.value)}
+                    value = {name}
+                />
+                <label>Your email: </label>
+                <input
+                    type="email"
+                    onChange= {(e)=>setEmail(e.target.value)}
+                    value = {email}
+                />
+                <label>Your password: </label>
+                <input
+                    type="password"
+                    onChange= {(e)=>setPassword(e.target.value)}
+                    value = {password}
+                />
+                {error && <div className='error'> {error} </div>}
+                <input disabled={isLoading} id='submit-btn'
+                type='submit'
+                />
+                
+                <Link to='/auth/login'>Login</Link>
+            </form>
+        </div>
+        
     )
 }
 

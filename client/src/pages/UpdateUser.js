@@ -1,11 +1,11 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import './updateUser.css'
 import { useUpdatePassword } from "../hooks/useUpdatePassword"
 import { useUpdateEmail } from "../hooks/useUpdateEmail"
 import { useUpdateAvatar } from "../hooks/useUpdateAvatar"
 import { useUpdateName } from "../hooks/useUpdateName"
 import {Link} from 'react-router-dom'
-
+import Navbar from "../components/Navbar";
 
 const UpdateUser = ()=>{
     
@@ -19,6 +19,12 @@ const UpdateUser = ()=>{
     const {updateEmail, emailPending, emailError} = useUpdateEmail()
     const {updateAvatar, avatarPending, avatarError} = useUpdateAvatar()
     const {updateName, namePending, nameError} = useUpdateName()
+
+
+    useEffect(()=>{
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0
+    },[])
 
     const changeAvatar = (e)=>{
         const file = e.target.files[0]
@@ -57,6 +63,13 @@ const UpdateUser = ()=>{
     
 
     return (
+    <div>
+
+        <div className="navbar-container">
+          <Navbar />
+        </div>
+
+
         <div className="updateUser">
             <h3>Change User Infomation</h3>
             <div className="form">
@@ -118,6 +131,9 @@ const UpdateUser = ()=>{
                 <Link to='/auth/dashboard'> Finish Update</Link>
             </div>
         </div>
+
+    </div>
+        
 
     )
 }

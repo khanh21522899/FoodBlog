@@ -3,15 +3,22 @@ import { Blog } from "../components/blog"
 import { useAuthContext } from '../hooks/useAuthContext'
 import "../styles/home.style.css"
 import { NavLink } from "react-router-dom"
-
+import Navbar from "../components/Navbar";
+import { useEffect } from "react";
 
 const Home = () => {
 
-
+  useEffect(()=>{
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0
+  },[])
 
 
   return (
     <div>
+      <div className="navbar-container">
+          <Navbar />
+      </div>
       <div className="slogan">
         Unleash Your Inner Chef
       </div>

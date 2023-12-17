@@ -5,7 +5,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { AiOutlineUpload } from "react-icons/ai";
 import "../../css/editRecipe.css";
-
+import Navbar from "../Navbar";
 const EditRecipe = () => {
   const id = useParams().id;
   const imageElm = useRef(null);
@@ -38,8 +38,11 @@ const EditRecipe = () => {
         console.log(error);
         // navigate("/");
       }
+     
     };
     getDetailRecipe();
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0
   }, []);
 
   const handleSubmit = async (e) => {
@@ -68,69 +71,75 @@ const EditRecipe = () => {
   };
 
   return (
-    <div className="editRecipe-page ">
-      <form onSubmit={handleSubmit} className="editRecipe-form">
-        {error && <div className="error_msg">{error}</div>}
-        {success && (
-          <div className="success_msg">
-            <span>{success}</span>
-            {/* <Link to="/">Go home</Link> */}
+    <div>
+          <div className="navbar-container">
+              <Navbar />
           </div>
-        )}
+          <div className="editRecipe-page ">
+          <form onSubmit={handleSubmit} className="editRecipe-form">
+            {error && <div className="error_msg">{error}</div>}
+            {success && (
+              <div className="success_msg">
+                <span>{success}</span>
+                {/* <Link to="/">Go home</Link> */}
+              </div>
+            )}
 
-        <input
-          type="text"
-          required
-          id="name"
-          placeholder="Name"
-          onChange={(e) => setTitle(e.target.value)}
-          value={title}
-        />
+            <input
+              type="text"
+              required
+              id="name"
+              placeholder="Name"
+              onChange={(e) => setTitle(e.target.value)}
+              value={title}
+            />
 
-        <input
-          type="text"
-          required
-          id="description"
-          placeholder="Description"
-          onChange={(e) => setDescription(e.target.value)}
-          value={description}
-        />
+            <input
+              type="text"
+              required
+              id="description"
+              placeholder="Description"
+              onChange={(e) => setDescription(e.target.value)}
+              value={description}
+            />
 
-        <CKEditor
-          editor={ClassicEditor}
-          onChange={(e, editor) => {
-            const data = editor.getData();
-            setContent(data);
-          }}
-          data={content}
-        />
+            <CKEditor
+              editor={ClassicEditor}
+              onChange={(e, editor) => {
+                const data = editor.getData();
+                setContent(data);
+              }}
+              data={content}
+            />
 
-        <div className="currentImage">
-          <div className="absolute">Current Image</div>
-          <img src={images[0] ?? "/batman.png"} alt="ingredientsrecipeImage" />
+            <div className="currentImage">
+              <div className="absolute">Current Image</div>
+              <img src={images[0] ?? "/batman.png"} alt="ingredientsrecipeImage" />
+            </div>
+            <div className="RecipeImageField">
+              <AiOutlineUpload />
+              <div className="txt">
+                {imageElm?.current?.value === null
+                  ? "    Change the image in your recipe "
+                  : imageElm?.current?.value.name}
+              </div>
+              <input
+                name="image"
+                type="file"
+                ref={imageElm}
+                onChange={(e) => {
+                  setImages([...images, e.target.files[0]]);
+                }}
+              />
+            </div>
+
+            <button type="submit" className="editStory-btn">
+              Edit Story{" "}
+            </button>
+          </form>
         </div>
-        <div className="RecipeImageField">
-          <AiOutlineUpload />
-          <div className="txt">
-            {imageElm?.current?.value === null
-              ? "    Change the image in your recipe "
-              : imageElm?.current?.value.name}
-          </div>
-          <input
-            name="image"
-            type="file"
-            ref={imageElm}
-            onChange={(e) => {
-              setImages([...images, e.target.files[0]]);
-            }}
-          />
-        </div>
-
-        <button type="submit" className="editStory-btn">
-          Edit Story{" "}
-        </button>
-      </form>
     </div>
+    
   );
 };
 

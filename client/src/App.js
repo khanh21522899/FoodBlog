@@ -1,4 +1,4 @@
-import Navbar from "./components/Navbar";
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 import { useEffect } from "react";
@@ -43,9 +43,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <div className="navbar-container">
-          <Navbar />
-        </div>
+        
 
         <div className="Pages">
           <Routes>

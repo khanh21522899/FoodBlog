@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../../styles/blog/blogcreate.style.css'
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom';
-
+import Navbar from "../Navbar";
 const CreateBlog = () => {
   const navigate = useNavigate()
   const { user } = useAuthContext();
@@ -17,6 +17,11 @@ const CreateBlog = () => {
   const [selectedImages, setSelectedImages] = useState([])
 
   console.log(blogData);
+
+  useEffect(()=>{
+         document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0
+  },[])
 
   const handleChange = (e) => {
     setBlogData({
@@ -72,32 +77,38 @@ const CreateBlog = () => {
   };
 
   return (
-    <div className='container '>
-      <h2>Create a New Blog</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Title:</label>
-        <input type="text" name="title" value={blogData.title} onChange={handleChange} required />
+    <div>
+        <div className="navbar-container">
+          <Navbar />
+        </div>
+        <div className='container '>
+        <h2>Create a New Blog</h2>
+        <form onSubmit={handleSubmit}>
+          <label>Title:</label>
+          <input type="text" name="title" value={blogData.title} onChange={handleChange} required />
 
-        <label>Duration:</label>
-        <input type="number" name="duration" value={blogData.duration} onChange={handleChange} required />
+          <label>Duration:</label>
+          <input type="number" name="duration" value={blogData.duration} onChange={handleChange} required />
 
-        <label>Description:</label>
-        <textarea name="description" value={blogData.description} onChange={handleChange} required />
+          <label>Description:</label>
+          <textarea name="description" value={blogData.description} onChange={handleChange} required />
 
-        <label>Images (comma-separated URLs):</label>
-        <input type="file" onChange={handleImageChange} accept="image/*" />
+          <label>Images (comma-separated URLs):</label>
+          <input type="file" onChange={handleImageChange} accept="image/*" />
 
-        {/* Display the selected images */}
-        {selectedImages.map((image, index) => (
-          <img key={index} src={image} alt={`Preview ${index + 1}`} className="image-preview" />
-        ))}
+          {/* Display the selected images */}
+          {selectedImages.map((image, index) => (
+            <img key={index} src={image} alt={`Preview ${index + 1}`} className="image-preview" />
+          ))}
 
-        <label>Content:</label>
-        <textarea name="content" value={blogData.content} onChange={handleChange} required />
+          <label>Content:</label>
+          <textarea name="content" value={blogData.content} onChange={handleChange} required />
 
-        <button type="submit">Create Blog</button>
-      </form>
+          <button type="submit">Create Blog</button>
+        </form>
+        </div>
     </div>
+    
   );
 };
 

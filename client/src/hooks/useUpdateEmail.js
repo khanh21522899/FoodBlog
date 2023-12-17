@@ -39,6 +39,10 @@ export const useUpdateEmail= () =>{
             if(response.ok){
                 setEmailPending(false)
                 setEmailError(jsonRes.message)
+                let userStorage = JSON.parse(localStorage.getItem('user'))
+                userStorage.email = email
+                localStorage.setItem('user', JSON.stringify(userStorage))  
+                user.email = email
             }
         }
 
