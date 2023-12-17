@@ -24,7 +24,7 @@ const NavB = () => {
           viewTransitionName: isTransitioning ? "slide" : "",
         };
       }}></NavLink>
-      <button className="nav-user">
+      <button className={user ? "nav-user" : ""}>
         <NavLink to={user ? "/auth/dashboard" : "/auth/login"} style={({ isActive, isPending, isTransitioning }) => {
           return {
             fontWeight: isActive ? "bold" : "",
