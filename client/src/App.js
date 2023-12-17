@@ -12,11 +12,12 @@ import CreateBlog from "./components/createBlog/createBlog.js";
 import BlogDetail from "./pages/BlogDetail.js";
 import EditRecipe from "./components/RecipePages/EditRecipe";
 import AuthorInfo from './pages/AuthorInfo.js'
+import "./styles/footer.style.css"
 
 function App() {
   const { user, dispatch } = useAuthContext();
-  const revalidate =async() => {
-    if(!user){
+  const revalidate = async () => {
+    if (!user) {
       return
     }
     const response = await fetch('/auth/dashboard', {
@@ -27,22 +28,22 @@ function App() {
     if (!response.ok) {
       window.alert('token expired')
       localStorage.removeItem('user')
-      dispatch({type:'LOGOUT'})
-      
+      dispatch({ type: 'LOGOUT' })
+
     }
     if (response.ok) {
       console.log('token accepted')
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     revalidate()
-  },[])
+  }, [])
 
   return (
     <div className="App">
       <BrowserRouter>
-        <div className="navbar">
+        <div className="navbar-container">
           <Navbar />
         </div>
 
@@ -70,14 +71,30 @@ function App() {
               element={user ? <CreateBlog /> : <Navigate to="/auth/login" />}
             />
             <Route
-             path="/blogs/userinfo/:authorId" 
-             element={<AuthorInfo />} 
-             />
+              path="/blogs/userinfo/:authorId"
+              element={<AuthorInfo />}
+            />
 
             <Route path="/blogs/:blogId" element={<BlogDetail />} />
 
             <Route exact path="/recipe/:id/edit" element={<EditRecipe />} />
           </Routes>
+        </div>
+
+        <div className="Footer">
+          <div className="footer footer-logo"></div>
+          <div className="footer footer-navigation">
+            <h3>Navigation</h3>
+            <a href="/">Home</a>
+            <a href="/auth/login">Join now</a>
+
+          </div>
+          <div className="footer footer-contact">
+            <h3>Contact</h3>
+            <p>info@stackoverkill.vn</p>
+            <p>instagram.com</p>
+
+          </div>
         </div>
       </BrowserRouter>
     </div>

@@ -1,15 +1,39 @@
 
 import { Blog } from "../components/blog"
 import { useAuthContext } from '../hooks/useAuthContext'
+import "../styles/home.style.css"
+import { NavLink } from "react-router-dom"
 
 
 const Home = () => {
 
 
-  
+
 
   return (
     <div>
+      <div className="slogan">
+        Unleash Your Inner Chef
+      </div>
+
+      <div className="home-description">
+        <h1>Chef Tank</h1>
+        <h3>Unleash your passion for food in a collaborative community of chefs, home cooks, and food enthusiasts. Share recipes, techniques, and tips to elevate your culinary skills.</h3>
+      </div>
+
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <button >
+
+          <NavLink to="/blogs/create-blog" style={({ isActive, isPending, isTransitioning }) => {
+            return {
+              fontWeight: isActive ? "bold" : "",
+              color: isPending ? "red" : "black",
+              viewTransitionName: isTransitioning ? "slide" : "",
+            };
+          }}>Create Blog</NavLink>
+        </button>
+
+      </div>
       <Blog />
     </div>
   )

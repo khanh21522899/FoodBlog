@@ -20,9 +20,9 @@ const BlogCard = ({ data, refetch }) => {
     await refetch(_id);
   }
 
-  const handleAuthorInfo = async () =>{
-    
-    author? navigate(`/blogs/userinfo/${author._id}`) : navigate('/')
+  const handleAuthorInfo = async () => {
+
+    author ? navigate(`/blogs/userinfo/${author._id}`) : navigate('/')
   }
 
   if (!data.length)
@@ -50,7 +50,7 @@ const BlogCard = ({ data, refetch }) => {
           </div>
           <div className="mngBtn">
             {author && author?._id === user?.id && <button onClick={handleEdit}>Edit</button>}
-            {author && author?._id === user?.id && <button onClick={handleDelete}>Delete</button>}
+            {author && author?._id === user?.id && <button onClick={handleDelete} style={{ backgroundColor: 'red', marginLeft: '10px' }}>Delete</button>}
           </div>
 
         </div>

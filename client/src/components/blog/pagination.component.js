@@ -14,10 +14,10 @@ const Pagination = ({ currentPage, pages }) => {
   // Hien tai chua xong vi chua co logic xu ly so trang can show ra.
   // Vi du: Trong 15 trang chi show ra 5 trang 1,2,3,4,5 || 2,3,4,5,6
   return (
-    <div>
+    <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', alignItems: 'center', marginTop: '2rem' }}>
       <button onClick={prevPage}>&lt;</button>
       {/* Lap qua mang gom cac trang muon the hien */}
-      {pages.length && pages.map((page, index) => (<button key={index} onClick={() => currentPage.setPage(page)} style={{ color: currentPage.page === page ? "green" : "" }}>{page}</button>))}
+      {pages.length && pages.map((page, index) => (<div key={index} onClick={() => currentPage.setPage(page)} style={{ color: currentPage.page === page ? "green" : "", fontWeight: '700', cursor: 'pointer' }}>{page}</div>))}
       <button onClick={nextPage}>&gt;</button>
     </div>
 
