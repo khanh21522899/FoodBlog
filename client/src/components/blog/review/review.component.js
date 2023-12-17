@@ -64,7 +64,7 @@ export default function Review(prop) {
       )}
       <Rating value={prop.review?.rating} />
 
-      {user?.id === prop.review?.userId?._id && (
+      {user && user?.id === prop.review?.userId?._id && (
         <div>
           {editing ? (
             <button

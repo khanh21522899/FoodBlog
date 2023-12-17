@@ -30,7 +30,8 @@ const BlogCard = ({ data, refetch }) => {
       <div>
         <div className="blogcard">
           <div className="blogcard-img" onClick={moveToPost}>
-            <img src={images[0] ?? "/batman.png"} alt="/batman.png" onError={e => {
+            <img src={images.length > 0 ? images[0] : " "} alt="" onError={e => {
+              console.log("image not working")
               e.target.src = '/noimage.jpeg'
             }} />
           </div>
