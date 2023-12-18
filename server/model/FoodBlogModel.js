@@ -23,7 +23,7 @@ const FoodBlogSchema = new Schema({
 //   next();
 // });
 
-FoodBlogSchema.pre("deleteOne", async function(next) {
+FoodBlogSchema.pre("deleteOne", async function (next) {
   const blog = await FoodBlog.findById(this._id);
 
   await Review.deleteMany({

@@ -35,6 +35,7 @@ app.use((error, req, res, next) => {
 
 //connecting to DB
 mongoose
+  //.connect(process.env.MONGO_URI, { dbName: process.env.DATABASE_NAME })
   .connect(process.env.URI)
   .then(() => {
     //make the server listening on port 4567
