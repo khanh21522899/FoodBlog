@@ -63,8 +63,8 @@ const EditRecipe = () => {
     });
 
     try {
-      const { data } = await axios.put(`/api/recipe/${id}/edit`);
-      // , formdata, {
+      const { data } = await axios.put(`/api/recipe/${id}/edit`, formdata);
+      // {
       //   headers: {
       //     "Content-type": "application/json",
       //     authorization: `Bearer ${user.token}`,
