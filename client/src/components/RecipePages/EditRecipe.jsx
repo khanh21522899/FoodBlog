@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { TailSpin } from "react-loader-spinner";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useNavigate, useParams, Link } from "react-router-dom";
@@ -109,99 +110,111 @@ const EditRecipe = () => {
   };
 
   return (
-    <div className="editRecipe-page ">
-      <form
-        onSubmit={handleSubmit}
-        className="editRecipe-form"
-        encType="multipart/form-data"
-      >
-        {error && <div className="error_msg">{error}</div>}
-        {success && (
-          <div className="success_msg">
-            <span>{success}</span>
-            {/* <Link to="/">Go home</Link> */}
+    <>
+      {loading ? (
+        <div className="bg-gray-200 min-h-screen flex items-center justify-center">
+          <div className="bg-white p-8 rounded shadow-md">
+            <TailSpin color="red" radius={"8px"} />
+            <p className="text-xl font-bold">Getting post data</p>
+            <p className="text-gray-600">
+              Please wait while we getting the data.
+            </p>
           </div>
-        )}
+        </div>
+      ) : (
+        <div className="editRecipe-page ">
+          <form
+            onSubmit={handleSubmit}
+            className="editRecipe-form"
+            encType="multipart/form-data"
+          >
+            {error && <div className="error_msg">{error}</div>}
+            {success && (
+              <div className="success_msg">
+                <span>{success}</span>
+                {/* <Link to="/">Go home</Link> */}
+              </div>
+            )}
 
-        <input
-          type="text"
-          required
-          id="name"
-          placeholder="Name"
-          onChange={(e) => setTitle(e.target.value)}
-          value={title}
-        />
+            <input
+              type="text"
+              required
+              id="name"
+              placeholder="Name"
+              onChange={(e) => setTitle(e.target.value)}
+              value={title}
+            />
 
-        <input
-          type="text"
-          required
-          id="description"
-          placeholder="Description"
-          onChange={(e) => setDescription(e.target.value)}
-          value={description}
-        />
+            <input
+              type="text"
+              required
+              id="description"
+              placeholder="Description"
+              onChange={(e) => setDescription(e.target.value)}
+              value={description}
+            />
 
-        <CKEditor
-          editor={ClassicEditor}
-          onChange={(e, editor) => {
-            const data = editor.getData();
-            setContent(data);
-          }}
-          data={content}
-        />
-        {(oldImages.length > 0 || newImageURLs.length > 0) && (
-          <div className="w-full max-w-2xl mx-auto bg-[#f0f0f0] rounded-lg p-4 border border-gray-300 h-64 overflow-auto">
-            <div className="mt-4 grid grid-cols-5 gap-2">
-              {oldImages.map((image, index) => {
-                return (
-                  <div
-                    className="mx-0 min-w-full flex flex-col items-center"
-                    key={index}
-                  >
-                    <img
-                      alt="Uploaded Image"
-                      className="aspect-square object-cover border border-gray-200 w-full rounded-lg overflow-hidden dark:border-gray-800"
-                      height="200"
-                      src={"data:image/png;base64," + image}
-                      width="200"
-                    />
-                    <button
-                      type="button"
-                      className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l mt-2 mb-5"
-                      onClick={() => deleteOldImage(index)}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                );
-              })}
-              {newImageURLs.map((image, index) => {
-                return (
-                  <div
-                    className="mx-0 min-w-full flex flex-col items-center"
-                    key={index}
-                  >
-                    <img
-                      alt="Uploaded Image"
-                      className="aspect-square object-cover border border-gray-200 w-full rounded-lg overflow-hidden dark:border-gray-800"
-                      height="200"
-                      src={image}
-                      width="200"
-                    />
-                    <button
-                      type="button"
-                      className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l mt-2 mb-5"
-                      onClick={() => deleteImage(index)}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-        {/* {newImageURLs.length > 0 ?? (
+            <CKEditor
+              editor={ClassicEditor}
+              onChange={(e, editor) => {
+                const data = editor.getData();
+                setContent(data);
+              }}
+              data={content}
+            />
+            {(oldImages.length > 0 || newImageURLs.length > 0) && (
+              <div className="w-full max-w-2xl mx-auto bg-[#f0f0f0] rounded-lg p-4 border border-gray-300 h-64 overflow-auto">
+                <div className="mt-4 grid grid-cols-5 gap-2">
+                  {oldImages.map((image, index) => {
+                    return (
+                      <div
+                        className="mx-0 min-w-full flex flex-col items-center"
+                        key={index}
+                      >
+                        <img
+                          alt="Uploaded Image"
+                          className="aspect-square object-cover border border-gray-200 w-full rounded-lg overflow-hidden dark:border-gray-800"
+                          height="200"
+                          src={"data:image/png;base64," + image}
+                          width="200"
+                        />
+                        <button
+                          type="button"
+                          className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l mt-2 mb-5"
+                          onClick={() => deleteOldImage(index)}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    );
+                  })}
+                  {newImageURLs.map((image, index) => {
+                    return (
+                      <div
+                        className="mx-0 min-w-full flex flex-col items-center"
+                        key={index}
+                      >
+                        <img
+                          alt="Uploaded Image"
+                          className="aspect-square object-cover border border-gray-200 w-full rounded-lg overflow-hidden dark:border-gray-800"
+                          height="200"
+                          src={image}
+                          width="200"
+                        />
+                        <button
+                          type="button"
+                          className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l mt-2 mb-5"
+                          onClick={() => deleteImage(index)}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+            {/* {newImageURLs.length > 0 ?? (
           <div className="w-full max-w-2xl mx-auto bg-[#f0f0f0] rounded-lg p-4 border border-gray-300 h-64 overflow-auto">
             <div className="mt-4 grid grid-cols-5 gap-2">
               {newImageURLs.map((image, index) => {
@@ -231,24 +244,26 @@ const EditRecipe = () => {
           </div>
         )} */}
 
-        <div className="RecipeImageField">
-          <AiOutlineUpload />
-          <div className="txt">{"Change the image in your recipe "}</div>
-          <input
-            className="file"
-            name="image"
-            type="file"
-            ref={imageElm}
-            multiple
-            onChange={onFileSelect}
-          />
-        </div>
+            <div className="RecipeImageField">
+              <AiOutlineUpload />
+              <div className="txt">{"Change the image in your recipe "}</div>
+              <input
+                className="file"
+                name="image"
+                type="file"
+                ref={imageElm}
+                multiple
+                onChange={onFileSelect}
+              />
+            </div>
 
-        <button type="submit" className="editStory-btn">
-          Update Blog{" "}
-        </button>
-      </form>
-    </div>
+            <button type="submit" className="editStory-btn">
+              Update Blog{" "}
+            </button>
+          </form>
+        </div>
+      )}
+    </>
   );
 };
 
