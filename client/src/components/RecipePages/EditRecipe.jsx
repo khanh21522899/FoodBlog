@@ -43,10 +43,12 @@ const EditRecipe = () => {
         setOldImages(blog.images);
         setLoading(false);
       } catch (error) {
-        setError(error.message);
+        setError(error.response.data.error);
         setLoading(false);
         console.log("runtime error: ", error);
-        navigate("/");
+        setTimeout(() => {
+          navigate("/");
+        }, 4500);
       }
     };
     getDetailRecipe();
