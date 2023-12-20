@@ -1,34 +1,44 @@
 const FoodBlog = require("../model/FoodBlogModel.js");
-const imageDelete = require("../Helpers/handleImages/delete.js");
+const sharp = require("sharp");
 
 const editBlog = async (req, res) => {
-  // const { slug } = req.params;
-  const { title, description, content, img } = req.body;
-
+  const { title, description, content, oldImages } = req.body;
   const { id } = req.params;
   const blog = await FoodBlog.findOne({ _id: id });
+
+  //oldImages will be a string if return 1 image, otherwise an array of strings, or undefined if none
+  let oldImagesArray = [];
+  if (typeof oldImages === "string") {
+    oldImagesArray.push(oldImages);
+  } else {
+    oldImagesArray = oldImages;
+  }
 
   blog.title = title;
   blog.description = description;
   blog.content = content;
-  blog.images.push(img);
+  const newImages = [];
+
+  //Compress new adding images
+  for (let i = 0; i < req.files.length; i++) {
+    const buffer = req.files[i].buffer;
+    const imgCompressed = await sharp(buffer).png({ quality: 20 }).toBuffer();
+    const imgCompressedBase64 = imgCompressed.toString("base64");
+    newImages.push(imgCompressedBase64);
+  }
+
+  //Append new images into database if any
+  if (Array.isArray(oldImagesArray) && newImages.length > 0) {
+    blog.images = oldImagesArray.concat(newImages);
+  } else blog.images = oldImagesArray || newImages || [];
+
   blog.updatedDate = Date.now();
 
-  //recipe.img = req.localSavedImage;
-
-  // if (!req.localSavedImage) {
-  //   // if the image is not sent
-  //   recipe.img = img;
-  // } else {
-  //   // if the image sent
-  //   // old image locatıon delete
-  //   previousImage && imageDelete(req, previousImage);
-  // }
   await blog.save();
 
   return res.status(200).json({
     success: true,
-    data: blog,
+    // data: blog,
   });
 };
 
@@ -45,10 +55,6 @@ const detailBlog = async (req, res) => {
 
 const deleteBlog = async (req, res) => {
   const { id } = req.params;
-  //const blog = await FoodBlog.findOne({ _id: id });
-
-  //imageDelete(req, story.image);
-
   await FoodBlog.deleteOne({ _id: id });
 
   return res.status(200).json({

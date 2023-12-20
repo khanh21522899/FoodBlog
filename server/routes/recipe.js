@@ -10,12 +10,7 @@ const {
 const router = express.Router();
 
 router.get("/:id", checkRecipeExist, detailRecipe);
-router.put(
-  "/:id/edit",
-  checkRecipeExist,
-  imageUpload.single("image"),
-  editRecipe
-);
+router.put("/:id/edit", checkRecipeExist, imageUpload.any(), editRecipe);
 router.delete("/:id/delete", checkRecipeExist, deleteRecipe);
 
 module.exports = router;
