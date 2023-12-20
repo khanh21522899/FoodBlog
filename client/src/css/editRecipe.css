@@ -1,16 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@700&display=swap");
-.editStory-page {
+.editRecipe-page {
   width: 1000px;
   margin: 1.2rem auto;
 }
 
 @media only screen and (max-width: 1001px) {
-  .editStory-page {
+  .editRecipe-page {
     width: 100%;
   }
 }
 
-.editStory-page .editStory-form {
+.editRecipe-page .editRecipe-form {
   position: relative;
   width: 650px;
   margin: 0 auto;
@@ -39,7 +39,7 @@
 }
 
 @media only screen and (max-width: 651px) {
-  .Inclusive-editStory-page .editStory-form {
+  .editRecipe-page .editRecipe-form {
     width: 80vw;
   }
   .ck.ck-reset.ck-editor.ck-rounded-corners {
@@ -110,8 +110,8 @@
   cursor: pointer;
 }
 
-.editStory-btn {
-  width: 100%;
+/* .editRecipe-btn {
+  width: 40%;
   background-color: #0063a5;
   padding: 0.7rem;
   color: white;
@@ -119,7 +119,7 @@
   border: none;
   border-radius: 6px;
   font-size: 1.1rem;
-}
+} */
 
 .dis-btn {
   width: 100%;

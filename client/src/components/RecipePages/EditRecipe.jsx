@@ -13,6 +13,7 @@ const EditRecipe = () => {
   const { user } = useAuthContext();
   const imageElm = useRef(null);
   const [loading, setLoading] = useState(true);
+  const [updating, setUpdating] = useState(false);
   const [newImageURLs, setNewImageURLs] = useState([]);
   const [newImages, setNewImages] = useState([]);
   const [oldImages, setOldImages] = useState([]);
@@ -51,6 +52,7 @@ const EditRecipe = () => {
   }, []);
 
   const handleSubmit = async (e) => {
+    setUpdating(true);
     e.preventDefault();
     const formdata = new FormData();
     formdata.append("title", title);
@@ -73,14 +75,16 @@ const EditRecipe = () => {
       // });
 
       setSuccess("Edit Story successfully ");
-
       setTimeout(() => {
         navigate("/");
       }, 2500);
+
+      setUpdating(false);
     } catch (error) {
       setTimeout(() => {
         setError("");
       }, 4500);
+      setUpdating(false);
       setError(error.response.data.error);
     }
   };
@@ -117,7 +121,7 @@ const EditRecipe = () => {
             <TailSpin color="red" radius={"8px"} />
             <p className="text-xl font-bold">Getting post data</p>
             <p className="text-gray-600">
-              Please wait while we getting the data.
+              Please wait while we getting the content.
             </p>
           </div>
         </div>
@@ -214,36 +218,6 @@ const EditRecipe = () => {
                 </div>
               </div>
             )}
-            {/* {newImageURLs.length > 0 ?? (
-          <div className="w-full max-w-2xl mx-auto bg-[#f0f0f0] rounded-lg p-4 border border-gray-300 h-64 overflow-auto">
-            <div className="mt-4 grid grid-cols-5 gap-2">
-              {newImageURLs.map((image, index) => {
-                return (
-                  <div
-                    className="mx-0 min-w-full flex flex-col items-center"
-                    key={index}
-                  >
-                    <img
-                      alt="Uploaded Image"
-                      className="aspect-square object-cover border border-gray-200 w-full rounded-lg overflow-hidden dark:border-gray-800"
-                      height="200"
-                      src={image}
-                      width="200"
-                    />
-                    <button
-                      type="button"
-                      className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l mt-2 mb-5"
-                      onClick={() => deleteImage(index)}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )} */}
-
             <div className="RecipeImageField">
               <AiOutlineUpload />
               <div className="txt">{"Change the image in your recipe "}</div>
@@ -257,8 +231,40 @@ const EditRecipe = () => {
               />
             </div>
 
-            <button type="submit" className="editStory-btn">
-              Update Blog{" "}
+            <button
+              type="submit"
+              className={`bg-blue-500 text-white px-4 py-2 rounded-md ${
+                updating ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={updating}
+            >
+              {updating ? (
+                <div className="flex items-center">
+                  <svg
+                    className="animate-spin h-4 w-4 mt-2 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V2.365A10.01 10.01 0 002.365 14H4v-2zm18-2a8 8 0 01-8 8v2a10.01 10.01 0 002.365-14H20v2z"
+                    ></path>
+                  </svg>
+                  Updating...
+                </div>
+              ) : (
+                "Update Blog"
+              )}
             </button>
           </form>
         </div>

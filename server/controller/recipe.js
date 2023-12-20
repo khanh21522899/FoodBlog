@@ -1,19 +1,37 @@
 const FoodBlog = require("../model/FoodBlogModel.js");
-const imageDelete = require("../Helpers/handleImages/delete.js");
+const sharp = require("sharp");
 
 const editBlog = async (req, res) => {
   const { title, description, content, oldImages } = req.body;
-  console.log(req.body);
   const { id } = req.params;
   const blog = await FoodBlog.findOne({ _id: id });
+
+  //oldImages will be a string if return 1 image, otherwise an array of strings, or undefined if none
+  let oldImagesArray = [];
+  if (typeof oldImages === "string") {
+    oldImagesArray.push(oldImages);
+  } else {
+    oldImagesArray = oldImages;
+  }
 
   blog.title = title;
   blog.description = description;
   blog.content = content;
-  const newImages = req.files.map((data) => data.buffer.toString("base64"));
-  if (Array.isArray(oldImages) && Array.isArray(newImages)) {
-    blog.images = oldImages.concat(newImages);
-  } else blog.images = oldImages || newImages || [];
+  const newImages = [];
+
+  //Compress new adding images
+  for (let i = 0; i < req.files.length; i++) {
+    const buffer = req.files[i].buffer;
+    const imgCompressed = await sharp(buffer).png({ quality: 20 }).toBuffer();
+    const imgCompressedBase64 = imgCompressed.toString("base64");
+    newImages.push(imgCompressedBase64);
+  }
+
+  //Append new images into database if any
+  if (Array.isArray(oldImagesArray) && newImages.length > 0) {
+    blog.images = oldImagesArray.concat(newImages);
+  } else blog.images = oldImagesArray || newImages || [];
+
   blog.updatedDate = Date.now();
 
   await blog.save();

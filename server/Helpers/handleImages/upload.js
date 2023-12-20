@@ -19,6 +19,9 @@ const path = require("path");
 
 const storage = multer.memoryStorage();
 
-const imageUpload = multer({ storage: storage }); //= multer({ storage });
+const imageUpload = multer({
+  storage: storage,
+  limits: { fieldSize: 25 * 1024 * 1024 },
+}); //= multer({ storage });
 
 module.exports = imageUpload;
