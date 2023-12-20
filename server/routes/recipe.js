@@ -1,5 +1,6 @@
 const express = require("express");
 const imageUpload = require("../Helpers/handleImages/upload.js");
+const requireAuth = require("../middleware/requireAuth.js");
 const checkRecipeExist = require("../middleware/database/checkRecipeExist.js");
 const {
   editRecipe,
@@ -9,6 +10,7 @@ const {
 
 const router = express.Router();
 
+//router.use(requireAuth);
 router.get("/:id", checkRecipeExist, detailRecipe);
 router.put("/:id/edit", checkRecipeExist, imageUpload.any(), editRecipe);
 router.delete("/:id/delete", checkRecipeExist, deleteRecipe);

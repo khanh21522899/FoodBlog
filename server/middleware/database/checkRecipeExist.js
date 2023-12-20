@@ -3,12 +3,11 @@ const CustomError = require("../../Helpers/error/customError.js");
 
 const checkRecipeExist = async (req, res, next) => {
   const { id } = req.params;
-  const recipe = await FoodBlog.findOne({ _id: id });
-
-  if (!recipe) {
-    return next(new CustomError(`There is no recipe with id: ${id} `, 400));
+  const blog = await FoodBlog.findOne({ _id: id });
+  if (!blog) {
+    //console.log(`There is no blog with id: ${id} `);
+    return next(new CustomError(`There is no blog with id: ${id} `, 400));
   }
-
   next();
 };
 

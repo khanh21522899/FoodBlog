@@ -4,7 +4,10 @@ const sharp = require("sharp");
 const editBlog = async (req, res) => {
   const { title, description, content, oldImages } = req.body;
   const { id } = req.params;
+
   const blog = await FoodBlog.findOne({ _id: id });
+
+  // console.log(req.files);
 
   //oldImages will be a string if return 1 image, otherwise an array of strings, or undefined if none
   let oldImagesArray = [];
@@ -44,7 +47,6 @@ const editBlog = async (req, res) => {
 
 const detailBlog = async (req, res) => {
   const { id } = req.params;
-
   const blog = await FoodBlog.findOne({ _id: id }); //.populate("author");
 
   return res.status(200).json({
