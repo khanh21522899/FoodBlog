@@ -44,14 +44,14 @@ const EditRecipe = () => {
         setLoading(false);
       } catch (error) {
         setError(error.message);
+        setLoading(false);
         console.log("runtime error: ", error);
         navigate("/");
       }
-     
     };
     getDetailRecipe();
     document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0
+    document.documentElement.scrollTop = 0;
   }, []);
 
   const handleSubmit = async (e) => {
@@ -118,9 +118,9 @@ const EditRecipe = () => {
 
   return (
     <>
-          <div className="navbar-container">
-              <Navbar />
-          </div>
+      <div className="navbar-container">
+        <Navbar />
+      </div>
       {loading ? (
         <div className="bg-gray-200 min-h-screen flex items-center justify-center">
           <div className="bg-white p-8 rounded shadow-md">
