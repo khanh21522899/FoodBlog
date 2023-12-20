@@ -13,6 +13,10 @@ export default function Review(prop) {
 
   const editor = async (e) => {
     e.preventDefault();
+    if(comment === ''){
+      window.alert('editing must have comment value')
+      return
+    }
     // console.log(e.target.comment.value);
     const dataAxios = await axios.put(`/api/v1/reviews/${prop.review?._id}`, {
       content: comment,
