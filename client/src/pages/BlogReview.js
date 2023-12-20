@@ -42,6 +42,10 @@ export default function BlogReviews() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(e.target.comment.value);
+    if(comment===''){
+      window.alert('must have comment to submit')
+      return
+    }
     const dataAxios = await axios.post(`/api/v1/reviews/`, {
       content: comment,
       rating: rating,

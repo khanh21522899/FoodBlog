@@ -82,7 +82,7 @@ export default function BlogDetail() {
 
             <h1>{detail.title}</h1>
 
-            <p>{detail.content}</p>
+            <p dangerouslySetInnerHTML={{ __html: detail.content }}></p>
           </div>
           <BlogReviews />
         </div>
