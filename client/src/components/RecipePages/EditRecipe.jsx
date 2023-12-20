@@ -187,7 +187,7 @@ const EditRecipe = () => {
                           alt="Uploaded Image"
                           className="aspect-square object-cover border border-gray-200 w-full rounded-lg overflow-hidden dark:border-gray-800"
                           height="200"
-                          src={"data:image/png;base64," + image}
+                          src={image}
                           width="200"
                         />
                         <button

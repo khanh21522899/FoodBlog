@@ -27,7 +27,7 @@ const editBlog = async (req, res) => {
     const buffer = req.files[i].buffer;
     const imgCompressed = await sharp(buffer).png({ quality: 20 }).toBuffer();
     const imgCompressedBase64 = imgCompressed.toString("base64");
-    newImages.push(imgCompressedBase64);
+    newImages.push("data:image/png;base64," + imgCompressedBase64);
   }
 
   //Append new images into database if any
