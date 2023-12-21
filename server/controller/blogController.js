@@ -1,22 +1,33 @@
 const mongoose = require("mongoose");
 const FoodBlog = require("../model/FoodBlogModel");
-const User = require("../model/UserModel");
 
 // Lay tat ca cac blogs
-const getAllBlogs = async (req, res, next) => {
+const getBlogsFromSearch = async (req, res, next) => {
   let blogs;
   let totalDocCount;
+
+  let { userid } = req.headers;
+  // console.log("this is header:", req.headers);
+  let { title, page, filterByUser } = req.query;
+  console.log(title);
+  // console.log("userid: , filter: ", userid, filterByUser);
   try {
-    blogs = await FoodBlog.find().populate({
-      path: "author",
-      select: "name image",
-    });
-    totalDocCount = await FoodBlog.estimatedDocumentCount();
-    // console.log(blogs);
+    // console.log("filterbyuser && userid", userid != undefined && filterByUser);
+    blogs = await FoodBlog.find(
+      userid != undefined && filterByUser ? { author: userid, title: { $regex: `${title}`, $options: 'i' } } : { title: { $regex: `${title}`, $options: 'i' } }
+    )
+      .skip((page - 1) * 12)
+      .limit(12)
+      .populate({
+        path: "author", select: "name avatar"
+      });
+    totalDocCount = await FoodBlog.countDocuments(userid != undefined && filterByUser ? { author: userid, title: { $regex: `${title}`, $options: 'i' } } : { title: { $regex: `${title}`, $options: 'i' } });
+
+    console.log(blogs, totalDocCount)
   } catch (error) {
     return next(error);
   }
-
+  // console.log(blogs);
   res.status(200).json({
     success: true,
     blogs,
@@ -44,11 +55,10 @@ const getBlogsFromPage = async (req, res, next) => {
         path: "author", select: "name avatar"
       });
     // blogs = await FoodBlog.find({ author: userid }).skip((page - 1) * 12).limit(12);
-    totalDocCount = await FoodBlog.estimatedDocumentCount();
+    totalDocCount = await FoodBlog.countDocuments(userid != undefined && filterByUser ? { author: userid } : null);
   } catch (error) {
     return next(error);
   }
-  // console.log(blogs);
   res.status(200).json({
     success: true,
     blogs,
@@ -97,7 +107,7 @@ const createBlog = async (req, res, next) => {
 };
 
 module.exports = {
-  getAllBlogs,
+  getBlogsFromSearch,
   getBlog,
   getBlogsFromPage,
   createBlog,

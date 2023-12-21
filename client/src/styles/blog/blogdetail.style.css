@@ -1,3 +1,9 @@
+.blog-detail-title {
+  margin: 2rem;
+  font-size: 2rem !important;
+  font-weight: 600;
+  text-align: center;
+}
 
 .blog-detail-hero-img {
   position: relative;
@@ -6,6 +12,17 @@
   margin: 2rem auto;
   overflow: hidden;
   border-radius: 2rem;
+}
+
+.blog-detail-content {
+  margin: 5rem 0;
+}
+
+.separator {
+  border: 1px dashed black;
+  width: 50%;
+
+  margin: 0 auto 3rem;
 }
 
 .blog-detail-hero-img img {
@@ -29,21 +46,22 @@
   z-index: 1;
 }
 
-.blog-detail-hero-img .switches > * {
+.blog-detail-hero-img .switches>* {
   width: 30%;
 }
 
 
-.blog-detail-hero-img .switches > [data-direction="prev"] {
-  cursor: w-resize;
+.blog-detail-hero-img .switches>[data-direction="prev"] {
+  /* cursor: w-resize; */
+  cursor: url("../../../public/leftarrow.svg"), auto;
 }
 
-.blog-detail-hero-img .switches > [data-direction="next"] {
-  cursor: e-resize;
+.blog-detail-hero-img .switches>[data-direction="next"] {
+  cursor: url("../../../public/rightarrow.svg"), auto;
 }
 
 
-.blog-detail-container > img {
+.blog-detail-container>img {
   width: 90%;
   height: 40vh;
   margin: auto;
@@ -54,9 +72,11 @@
   opacity: 0;
   transition: 0.5s
 }
-.blog-detail-container  img.active {
+
+.blog-detail-container img.active {
   opacity: 1;
 }
+
 .blog-detail {
   width: 70%;
   margin: auto;

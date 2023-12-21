@@ -31,14 +31,13 @@ const BlogCard = ({ data, refetch }) => {
         <div className="blogcard">
           <div className="blogcard-img" onClick={moveToPost}>
             <img src={images.length > 0 ? images[0] : " "} alt="" onError={e => {
-              console.log("image not working")
               e.target.src = '/noimage.jpeg'
             }} />
           </div>
           <div className="blogcard-content">
             <div className="blogcard-content-title" onClick={moveToPost}>{title}</div>
             <div className="blogcard-content-time">{(new Date(createdDate)).toString().substring(3, 15)} * {duration} mins read</div>
-            <p className="blogcard-content-desc">{description.length <= 380 ? description : description.slice(0, 230) + '...'} <Link to={`/blogs/${_id}`} style={{ pointerEvents: "auto", cursor: "pointer" }} >See more</Link></p>
+            <p className="blogcard-content-desc">{description.length <= 50 ? description : description.slice(0, 50) + '...'} <Link to={`/blogs/${_id}`} style={{ pointerEvents: "auto", cursor: "pointer" }} >See more</Link></p>
           </div>
 
           <div className="blogcard-author" onClick={handleAuthorInfo}>
@@ -51,7 +50,7 @@ const BlogCard = ({ data, refetch }) => {
           </div>
           <div className="mngBtn">
             {author && author?._id === user?.id && <button onClick={handleEdit}>Edit</button>}
-            {author && author?._id === user?.id && <button onClick={handleDelete} style={{ backgroundColor: 'red', marginLeft: '10px' }}>Delete</button>}
+            {author && author?._id === user?.id && <button className="delete-btn" onClick={handleDelete} style={{ backgroundColor: 'red', marginLeft: '10px', color: 'white' }}>Delete</button>}
           </div>
 
         </div>

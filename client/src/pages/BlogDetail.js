@@ -80,9 +80,10 @@ export default function BlogDetail() {
               {user?.id === detail?.author?._id && <button onClick={toEditPage}>Edit blog</button>}
             </div>
 
-            <h1>{detail.title}</h1>
+            <h1 className="blog-detail-title">{detail.title}</h1>
 
-            <p dangerouslySetInnerHTML={{ __html: detail.content }}></p>
+            <p dangerouslySetInnerHTML={{ __html: detail.content }} className="blog-detail-content"></p>
+            <div className="separator"></div>
           </div>
           <BlogReviews />
         </div>

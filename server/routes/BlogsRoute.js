@@ -1,6 +1,6 @@
 const express = require("express");
 const {
-  getAllBlogs,
+  getBlogsFromSearch,
   getBlog,
   getBlogsFromPage,
   createBlog,
@@ -9,7 +9,7 @@ const {
 const requireAuth = require("../middleware/requireAuth.js");
 const router = express.Router();
 
-router.get("/allBlogs", getAllBlogs);
+router.get("/search", getBlogsFromSearch);
 router.get("/", getBlogsFromPage);
 router.get("/:id", getBlog);
 

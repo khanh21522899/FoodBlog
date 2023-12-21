@@ -141,7 +141,7 @@ const CreateBlog = () => {
               required
             />
 
-            <button type="submit">Create Blog</button>
+            <button style={{ background: '#14C38E', color: 'white', marginTop: '1rem' }} type="submit">Create Blog</button>
             <ToastContainer autoClose={1000} />
           </form>
         </div>

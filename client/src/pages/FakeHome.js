@@ -8,16 +8,16 @@ import { useEffect } from "react";
 
 const Home = () => {
 
-  useEffect(()=>{
+  useEffect(() => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0
-  },[])
+  }, [])
 
 
   return (
     <div>
       <div className="navbar-container">
-          <Navbar />
+        <Navbar />
       </div>
       <div className="slogan">
         Unleash Your Inner Chef
@@ -29,13 +29,14 @@ const Home = () => {
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <button >
+        <button style={{ background: "#14C38E" }}>
 
           <NavLink to="/blogs/create-blog" style={({ isActive, isPending, isTransitioning }) => {
             return {
               fontWeight: isActive ? "bold" : "",
-              color: isPending ? "red" : "black",
+              color: "white",
               viewTransitionName: isTransitioning ? "slide" : "",
+
             };
           }}>Create Blog</NavLink>
         </button>

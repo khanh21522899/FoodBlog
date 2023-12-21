@@ -8,7 +8,7 @@ import { Blog } from "../components/blog"
 import Navbar from "../components/Navbar";
 
 const Dashboard = () => {
-  const { user , dispatch} = useAuthContext()
+  const { user, dispatch } = useAuthContext()
 
 
   const [avatar, setAvatar] = useState('')
@@ -33,8 +33,8 @@ const Dashboard = () => {
       if (!response.ok) {
         window.alert('token expired')
         localStorage.removeItem('user')
-        dispatch({type:'LOGOUT'})
-        
+        dispatch({ type: 'LOGOUT' })
+
       }
       if (response.ok) {
         const { name, email, avatar } = res
@@ -60,53 +60,50 @@ const Dashboard = () => {
     setPassword("");
   }
 
-
-
-
   return (
     <div>
-      
+
       <div className="navbar-container">
-          <Navbar />
+        <Navbar />
       </div>
 
       <div className='dashboard'>
-       
-       <div className="blogContainer"><Blog filterByUser /></div>
-       <div className="info">
-         <h3>User Information</h3>
- 
-         <div className='userInfo' >
-           <p>Your avatar</p>
-           <img id='avatar' width='100px' height='100px' alt='This is the avatar of user' src={avatar} />
- 
- 
-           <p className="avatarStatus"></p>
- 
-           <p>Your Name: {name}</p>
- 
-           <p>Your email: {email}</p>
- 
-           <Link to='/auth/dashboard/updateuser'>Change Information</Link>
-           <Popup trigger=
-             {<button> Delete User </button>}
-             position="bottom center">
-             <label> Password :
-               <input
-                 onChange={(e) => setPassword(e.target.value)}
-                 value={password}
-               />
-             </label>
-             <button disabled={deletePending} onClick={handleClick}>Confirm Password</button>
-             <p>{deleteError}</p>
-           </Popup>
- 
-         </div>
-       </div>
-     </div>
+
+        <div className="blogContainer"><Blog filterByUser /></div>
+        <div className="info">
+          <h3>User Information</h3>
+
+          <div className='userInfo' >
+            <p>Your avatar</p>
+            <img id='avatar' width='100px' height='100px' alt='This is the avatar of user' src={avatar ?? '/userpicture.jpeg'} onError={e => e.target.src = "/userpicture.jpeg"} />
+
+
+            <p className="avatarStatus"></p>
+
+            <p>Your Name: {name}</p>
+
+            <p>Your email: {email}</p>
+
+            <Link to='/auth/dashboard/updateuser'>Change Information</Link>
+            <Popup trigger=
+              {<button> Delete User </button>}
+              position="bottom center">
+              <label> Password :
+                <input
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                />
+              </label>
+              <button disabled={deletePending} onClick={handleClick}>Confirm Password</button>
+              <p>{deleteError}</p>
+            </Popup>
+
+          </div>
+        </div>
+      </div>
 
     </div>
-    
+
 
   )
 }
