@@ -41,11 +41,8 @@ export default function BlogReviews() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (comment === "") alert("Please enter comment");
     // console.log(e.target.comment.value);
-    if(comment===''){
-      window.alert('must have comment to submit')
-      return
-    }
     const dataAxios = await axios.post(`/api/v1/reviews/`, {
       content: comment,
       rating: rating,
@@ -62,7 +59,12 @@ export default function BlogReviews() {
   };
   const handleDelete = async (e, id) => {
     e.preventDefault();
-    const dataAxios = await axios.delete(`/api/v1/reviews/${id}`, { headers: { "Content-Type": "application/json", "authorization": `Bearer ${user?.token}` } });
+    const dataAxios = await axios.delete(`/api/v1/reviews/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${user?.token}`,
+      },
+    });
     console.log(dataAxios, id);
     fetchReview();
   };
@@ -97,20 +99,23 @@ export default function BlogReviews() {
                     </select>
                   </div>
                   <div>
-                    <label htmlFor="comment">Comment</label>
                     <textarea
                       id="comment"
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
+                      name="opinion"
+                      cols="20"
+                      rows="5"
+                      placeholder="Your opinion..."
                     ></textarea>
                   </div>
 
-                  <div>
+                  <div class="btn-group">
                     <label />
                     <button
-                      className="primary"
+                      class="btn submit"
                       type="submit"
-                    // onClick={fetchReview}
+                      // onClick={fetchReview}
                     >
                       Submit
                     </button>
@@ -136,8 +141,15 @@ export default function BlogReviews() {
             onClick={() => {
               setPages(pages + 1);
             }}
+            style={{
+              backgroundColor: "#3278ff",
+              borderRadius: 10,
+              marginTop: 20,
+              marginBottom: 10,
+              color: "#fff",
+            }}
           >
-            xem them
+            See more
           </button>
         </div>
       </div>

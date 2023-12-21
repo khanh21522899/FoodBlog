@@ -13,30 +13,47 @@ export default function Review(prop) {
 
   const editor = async (e) => {
     e.preventDefault();
-    if(comment === ''){
-      window.alert('editing must have comment value')
-      return
+    if (comment === "") {
+      window.alert("editing must have comment value");
+      return;
     }
     // console.log(e.target.comment.value);
-    const dataAxios = await axios.put(`/api/v1/reviews/${prop.review?._id}`, {
-      content: comment,
-      date: new Date(),
-      rating: rating,
-    }, { headers: { "Content-Type": "application/json", "authorization": `Bearer ${user.token}` } });
+    const dataAxios = await axios.put(
+      `/api/v1/reviews/${prop.review?._id}`,
+      {
+        content: comment,
+        date: new Date(),
+        rating: rating,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     console.log(dataAxios);
     prop.fetchReview();
     setEditing(false);
   };
   return (
-    <div>
+    <div
+      style={{
+        marginBottom: "5px",
+        backgroundColor: "#14C38E",
+        padding: "20px",
+        borderRadius: "10px",
+      }}
+    >
       <img
-        className="rounded-circle shadow-1-strong me-3"
-        src={prop.review?.userId?.avatar}
+        className="avatar-img"
+        src={prop.review?.userId?.avatar ?? "/userpicture.jpeg"}
         alt="avatar"
         width="65"
         height="65"
+        style={{ borderRadius: "50%" }}
       />
-      <MDBTypography tag="h5">{prop.review?.userId?.name}</MDBTypography>
+      <MDBTypography tag="h1">{prop.review?.userId?.name}</MDBTypography>
       <p className="small">
         Date: {prop.review?.date?.toString().substr(0, 10)}
       </p>
@@ -86,7 +103,7 @@ export default function Review(prop) {
               className="primary"
               type="submit"
               style={{
-                backgroundColor: "purple",
+                backgroundColor: "pink",
               }}
               onClick={() => setEditing(true)}
             >
@@ -99,6 +116,7 @@ export default function Review(prop) {
             type="submit"
             style={{
               backgroundColor: "red",
+              marginLeft: "10px",
             }}
             onClick={(e) => {
               console.log(prop.review);
