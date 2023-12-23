@@ -8,6 +8,7 @@ const morgan = require("morgan");
 const errorHandler = require("./middleware/error/errorHandler.js");
 const route = require("./routes/index.js");
 const ReviewRoutes = require("./routes/ReviewRoute");
+const path = require("path");
 
 //create the server
 const app = express();
@@ -16,6 +17,7 @@ app.use(cors());
 
 //use middleware
 app.use(express.json({ limit: "25mb" }));
+app.use(express.static(path.join(__dirname, "../client/build")))
 
 app.use(morgan("combined")); // 'combined' is one of the predefined log formats
 
